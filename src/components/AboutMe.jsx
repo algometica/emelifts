@@ -14,7 +14,7 @@ const AboutMe = () => {
             />
             <div className="text-gray-400 text-lg dark-card-text">
                 <p>
-                Hi! I'm Em. I train and coach women who want to change their lives, to be stronger, leaner and fitter. We lift heavy weights to build lean muscle to fight diseases and we eat our cultural foods for the best optimized health.
+                Hi! I'm Em. I train and coach women who want to change their lives, to be stronger, fitter, and leaner. We lift heavy weights to build lean muscle to fight diseases and we eat our cultural foods for the best optimized health.
                 </p>
             </div>
         </div>
