@@ -5,7 +5,7 @@ const Pricing = () => {
     {
       name: 'Wedding Prep',
       price: 'Custom',
-      features: ['Look and feel great for your wedding events'],
+      features: ['Look and feel great for your wedding events with our trademarked Wedding Prep™ program'],
       link: 'https://www.trainerize.me/profile/emelifts/?planGUID=4184a158f9284055834acee9a548ebd6',
     },
     {
