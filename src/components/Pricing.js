@@ -3,22 +3,22 @@ import PricingCard from './PricingCard';
 const Pricing = () => {
   const plans = [
     {
+      name: '6 Week Challenge - April 14',
+      price: 'Custom',
+      features: ['In person challenge to get strong, fit and lean'],
+      link: 'https://emelifts.punchpass.com/passes/224600?check=1740968332',
+    },
+    {
+      name: '6 Week Starter - Online',
+      price: 'Custom',
+      features: ['Build a strong base of strength and lean muscle in this 6 Week online program'],
+      link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=8afa236b68ec45b397f8d7938c7ba0a5',
+    },
+    {
       name: 'Wedding Prep',
       price: 'Custom',
       features: ['Look and feel great for your wedding events with our trademarked Wedding Prep™ program'],
       link: 'https://www.trainerize.me/profile/emelifts/?planGUID=4184a158f9284055834acee9a548ebd6',
-    },
-    {
-      name: 'Triple Threat Fit Forties',
-      price: 'Custom',
-      features: ['Get fit and strong for your 40s.', 'A program that addresses hormonal changes, weight gain and muscle loss'],
-      link: 'https://www.trainerize.me/profile/emelifts/?planGUID=75c6cf9032a044ab9ca6d793ba4a6060',
-    },
-    {
-      name: 'Lift With EME',
-      price: 'Custom',
-      features: ['A Structured monthly workout program to get you stronger and fitter.'],
-      link: 'https://www.trainerize.me/profile/emelifts/?planGUID=9c1a510dde9b41748eb79cdaef596d47',
     },
     {
       name: '1:1 Coaching',

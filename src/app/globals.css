@@ -5,7 +5,7 @@
 :root {
   --background-color: #121212; /* Very dark gray */
   --text-color: #f5f5f5; /* Light gray for readability */
-  --accent-color: #64ffda; /* Teal or similar accent */
+  --accent-color: #FF69B4; /* Teal or similar accent */
   --card-background: #1e1e1e; /* Slightly lighter than background */
   --card-shadow: rgba(0, 0, 0, 0.5);
 }
