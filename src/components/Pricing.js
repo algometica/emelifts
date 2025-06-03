@@ -9,7 +9,7 @@ const Pricing = () => {
       link: 'https://www.trainerize.me/profile/emelifts/?planGUID=262791246d5549ceae96edfa38e59b05',
     },
     {
-      name: '28 Day burn - June 1',
+      name: '28 Day burn - June 15',
       price: 'Custom',
       features: ['28 Day Burn: Burn fat, lean out, and feel confident in 28 days.'],
       link: 'https://www.trainerize.me/profile/emelifts/?planGUID=e081c7397a73460f8f60bdec1ac84ea5',
