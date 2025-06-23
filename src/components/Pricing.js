@@ -3,16 +3,22 @@ import PricingCard from './PricingCard';
 const Pricing = () => {
   const plans = [
     {
-      name: 'Lift with EME',
+      name: '28 Day Burn',
       price: 'Custom',
-      features: ['A monthly at-home workout program designed to build real strength through fundamental, proven movements.'],
-      link: 'https://www.trainerize.me/profile/emelifts/?planGUID=262791246d5549ceae96edfa38e59b05',
+      features: [
+        'Look good, feel great, and achieve real results.',
+        'A program designed for lasting transformation.'
+      ],
+      link: 'https://www.trainerize.me/profile/emelifts/?planGUID=e081c7397a73460f8f60bdec1ac84ea5',
     },
     {
-      name: '28 Day burn - June 15',
+      name: '6 Week - The Next Phase',
       price: 'Custom',
-      features: ['28 Day Burn: Burn fat, lean out, and feel confident in 28 days.'],
-      link: 'https://www.trainerize.me/profile/emelifts/?planGUID=e081c7397a73460f8f60bdec1ac84ea5',
+      features: [
+        'You completed the 28 Day Burn, loved your results, and now you\'re ready for more.',
+        'This program is designed to help you achieve lasting results.'
+      ],
+      link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=b78be814504a4ef3b14dfcec85ccb8c3',
     },
   ];
 

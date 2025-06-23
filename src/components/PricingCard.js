@@ -12,7 +12,7 @@ const PricingCard = ({ plan }) => {
               {plan.name}
             </h3>
             
-            <ul className="mb-4">
+            <ul className="mb-4 list-disc pl-5">
               {plan.features.map((feature, index) => (
                 <li key={index} className="text-gray-300 dark-card-text">{feature}</li>
               ))}
