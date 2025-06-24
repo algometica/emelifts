@@ -6,8 +6,7 @@ const Pricing = () => {
       name: '28 Day Burn',
       price: 'Custom',
       features: [
-        'Look good, feel great, and achieve real results.',
-        'A program designed for lasting transformation.'
+        'Look good, feel good, and achieve real results.'
       ],
       link: 'https://www.trainerize.me/profile/emelifts/?planGUID=e081c7397a73460f8f60bdec1ac84ea5',
     },
@@ -16,7 +15,7 @@ const Pricing = () => {
       price: 'Custom',
       features: [
         'You completed the 28 Day Burn, loved your results, and now you\'re ready for more.',
-        'This program is designed to help you achieve lasting results.'
+        'This program is designed to help you achieve permanent results.'
       ],
       link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=b78be814504a4ef3b14dfcec85ccb8c3',
     },
