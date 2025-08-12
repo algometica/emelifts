@@ -6,8 +6,7 @@ const Pricing = () => {
       name: '6 Week Challenge – Sept 8, 2025',
       price: 'Custom',
       features: [
-        'Build lean muscle, boost your energy, and feel stronger with 4 quick & effective full-body workouts each week.',
-        'Stay on track with weekly check-ins, a personalized meal guide, and expert coaching to achieve lasting results.'
+        'Results in 6 weeks with effective at-home workouts, customized meal plan, and coaching.'
       ],
       link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=3066f75bdf0f47d6b8a9b23a2db07468',
     },
