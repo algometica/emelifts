@@ -20,7 +20,7 @@ const PricingCard = ({ plan }) => {
           </div>
           <div className="p-4 border-t border-gray-700 text-center">
             <span className="dark-card-link font-semibold hover:text-teal-300 transition-colors duration-200">
-              Learn More
+              Join the Challenge!
             </span>
           </div>
         </div>
