@@ -3,21 +3,13 @@ import PricingCard from './PricingCard';
 const Pricing = () => {
   const plans = [
     {
-      name: '28 Day Burn',
+      name: '6 Week Challenge – Sept 8, 2025',
       price: 'Custom',
       features: [
-        'Look good, feel good, and achieve real results.'
+        'Build lean muscle, boost your energy, and feel stronger with 4 quick & effective full-body workouts each week.',
+        'Stay on track with weekly check-ins, a personalized meal guide, and expert coaching to achieve lasting results.'
       ],
-      link: 'https://www.trainerize.me/profile/emelifts/?planGUID=e081c7397a73460f8f60bdec1ac84ea5',
-    },
-    {
-      name: '6 Week - The Next Phase',
-      price: 'Custom',
-      features: [
-        'You completed the 28 Day Burn, loved your results, and now you\'re ready for more.',
-        'This program is designed to help you achieve permanent results.'
-      ],
-      link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=b78be814504a4ef3b14dfcec85ccb8c3',
+      link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=3066f75bdf0f47d6b8a9b23a2db07468',
     },
   ];
 
