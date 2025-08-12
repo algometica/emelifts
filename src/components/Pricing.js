@@ -6,7 +6,7 @@ const Pricing = () => {
       name: '6 Week Challenge – Sept 8, 2025',
       price: 'Custom',
       features: [
-        'Results in 6 weeks with effective at-home workouts, customized meal plan, and coaching.'
+        'Results in 6 weeks with an expertly created program. Get ready for a transformation.'
       ],
       link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=3066f75bdf0f47d6b8a9b23a2db07468',
     },
