@@ -1,42 +1,55 @@
-// const Footer = () => {
-//   return (
-//     <footer className="text-center py-4 dark-footer">
-//       <p>© {new Date().getFullYear()} emelifts. All rights reserved.</p>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
-
-// src/components/Footer.jsx (or .tsx)
 import React from 'react';
 import Link from 'next/link';
 
 const Footer = () => {
-  const instagramLink = 'https://www.instagram.com/emelifts/'; // Replace with your actual Instagram link
+  const instagramLink = 'https://www.instagram.com/emelifts/';
 
   return (
-    <footer className="dark-footer text-gray-400 py-4 mb-4"> {/* Darker background, lighter text */}
-      <div className="container mx-auto text-center">
-        <p>© {new Date().getFullYear()} Emelifts. All rights reserved.</p>
-        <div className="mt-2">
-          {/* Instagram Icon */}
-          <Link href={instagramLink} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300"> {/* Light gray, hover effect */}
-            <svg
-              className="w-6 h-6 inline-block"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 1.327.058 2.278.16 2.874.354.596.194 1.042.413 1.43.791.388.378.608.824.791 1.42.194.596.296 1.547.354 2.874.059 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.058 1.327-.16 2.278-.354 2.874-.194.596-.413 1.042-.791 1.43-.378.388-.824.608-1.42.791-.596.194-1.547.296-2.874.354-1.266.059-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.327-.058-2.278-.16-2.874-.354-.596-.194-1.042-.413-1.43-.791-.378-.388-.824-.608-1.42.791-.596.194-1.547.296-2.874.354-1.266.059-1.646.07-4.85.07S2.163 20.163 2.163 16.959c0-3.204.012-3.584.07-4.85.058-1.327.16-2.278.354-2.874.194-.596.413-1.042.791-1.43.388-.378.608-.824.791-1.42.194-.596.296-1.547.354-2.874.059-1.266.07-1.646.07-4.85s-.012-3.584-.07-4.85c-.058-1.327-.16-2.278-.354-2.874-.194-.596-.413-1.042-.791-1.43-.378-.388-.824-.608-1.42.791-.596.194-1.547.296-2.874.354-1.266.059-1.646.07-4.85-.07S2.163 3.837 2.163 7.041c0 3.204-.012 3.584-.07 4.85-.058 1.327-.16 2.278-.354 2.874-.194.596-.413 1.042.791 1.43-.378.388-.824.608-1.42.791-.596.194-1.547.296-2.874.354-1.266.059-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.327-.058-2.278-.16-2.874-.354-.596-.194-1.042-.413-1.43-.791-.378-.388-.824-.608-1.42.791-.596.194-1.547.296-2.874.354-1.266.059-1.646-.07-4.85-.07S3.837 2.163 7.041 2.163c3.204 0 3.584.012 4.85.07 1.327.058 2.278.16 2.874.354.596.194 1.042.413 1.43.791.388.378.608.824.791 1.42.194.596.296 1.547.354 2.874.059 1.266.07 1.646.07 4.85zM12 6.157a5.843 5.843 0 1 0 0 11.686 5.843 5.843 0 0 0 0-11.686zM12 16a3.943 3.943 0 1 1 0-7.886 3.943 3.943 0 0 1 0 7.886zm6.405-11.184a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"
-                clipRule="evenodd"
-                fill="orange"
-              />
-            </svg>
-          </Link>
-          {/* Add other social media icons here */}
+    <footer className="border-t border-gray-800 bg-gray-900/50 py-12">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* Brand */}
+          <div>
+            <h3 className="text-2xl font-bold gradient-text mb-4">Emelifts</h3>
+            <p className="text-gray-400 leading-relaxed">
+              Empowering women to become stronger, fitter, and leaner through personalized fitness coaching that honors cultural heritage.
+            </p>
+          </div>
+          
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              <li><a href="#pricing" className="text-gray-400 hover:text-pink-500 transition-colors">Programs</a></li>
+              <li><a href="#about" className="text-gray-400 hover:text-pink-500 transition-colors">About</a></li>
+              <li><a href="#testimonials" className="text-gray-400 hover:text-pink-500 transition-colors">Reviews</a></li>
+              <li><a href="#contact" className="text-gray-400 hover:text-pink-500 transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          
+          {/* Social */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">Follow Me</h4>
+            <div className="flex gap-4">
+              <Link 
+                href={instagramLink} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-12 h-12 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform duration-200"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+        
+        {/* Bottom */}
+        <div className="border-t border-gray-800 pt-8 text-center">
+          <p className="text-gray-400">
+            © {new Date().getFullYear()} Emelifts. All rights reserved. Made with 💪 for stronger women everywhere.
+          </p>
         </div>
       </div>
     </footer>
