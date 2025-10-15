@@ -6,22 +6,19 @@ const Testimonials = () => {
       name: "Sarah M.",
       text: "The online program was perfect for my busy schedule! I could work out at 5 AM before my kids woke up. The video demonstrations were so clear, and Em's weekly check-ins kept me motivated.",
       rating: 5,
-      program: "Online Challenge",
-      highlight: "Flexible Schedule"
+      program: "Online Challenge"
     },
     {
       name: "Susie H.",
-      text: "I loved being able to train from home! The cultural food integration meal plans were a game-changer. I lost 15 pounds while still enjoying my traditional foods.",
+      text: "I loved being able to train from home! The meal plans were a game-changer. I lost 15 pounds while still enjoying my traditional foods.",
       rating: 5,
-      program: "Online Challenge",
-      highlight: "Cultural Food Integration"
+      program: "Online Challenge"
     },
     {
       name: "Jennifer K.",
-      text: "The online program gave me the confidence to start lifting weights. The HD videos made it easy to learn proper form, and I could rewatch them anytime.",
+      text: "The online program gave me the confidence to start lifting weights. The video-tutorials made it easy to learn proper form, and I could rewatch them anytime.",
       rating: 5,
-      program: "Online Challenge",
-      highlight: "HD Video Training"
+      program: "Online Challenge"
     }
   ];
 

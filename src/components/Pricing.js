@@ -22,9 +22,8 @@ const Pricing = () => {
       price: 'Custom',
       features: [
         'Semi Private In-person Training',
-        'Personalized form correction',
-        'Real-time motivation and support',
-        'Small group atmosphere'
+        'Personalized training program',
+        'Extensive coaching'
       ],
       link: 'https://emelifts.punchpass.com/passes/224600?check=1740968332',
       popular: false
