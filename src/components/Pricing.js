@@ -17,17 +17,6 @@ const Pricing = () => {
       highlight: '🔥 HOT DEAL',
       savings: 'Save 30%'
     },
-    {
-      name: '6 Week In Person Challenge - Nov 4',
-      price: 'Custom',
-      features: [
-        'Semi Private In-person Training',
-        'Personalized training program',
-        'Extensive coaching'
-      ],
-      link: 'https://emelifts.punchpass.com/passes/224600?check=1740968332',
-      popular: false
-    },
   ];
 
   return (
@@ -38,14 +27,14 @@ const Pricing = () => {
       <div className="container mx-auto relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-            Result-Driven Programs
+            Result-Driven Program
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Choose the program that fits your lifestyle and goals. Both options include personalized coaching and cultural food integration.
+            A comprehensive program tailored to your lifestyle and goals, including personalized coaching and cultural food integration.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 gap-8 max-w-2xl mx-auto">
           {plans.map((plan, index) => (
             <PricingCard
               key={index}
