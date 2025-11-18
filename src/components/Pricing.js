@@ -3,7 +3,7 @@ import PricingCard from './PricingCard';
 const Pricing = () => {
   const plans = [
     {
-      name: '6 Week Online Challenge - Nov 4',
+      name: '6 Week Online Challenge - Jan 5',
       price: 'Custom',
       features: [
         'Flexible schedule - train anytime, anywhere',
