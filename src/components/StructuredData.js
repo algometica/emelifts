@@ -12,8 +12,8 @@ export const structuredData = {
   "offers": [
     {
       "@type": "Service",
-      "name": "6 Week Online Challenge",
-      "description": "Build a strong base of strength and lean muscle with flexible online training",
+      "name": "Lift with EME - Monthly",
+      "description": "Progressive, structured at-home strength training with personalized coaching",
       "provider": {
         "@type": "Person",
         "name": "Emelifts"

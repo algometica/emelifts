@@ -48,7 +48,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} Emelifts. All rights reserved. Made with 💪 for stronger women everywhere.
+            © {new Date().getFullYear()} Emelifts. All rights reserved. Made for stronger women everywhere.
           </p>
         </div>
       </div>

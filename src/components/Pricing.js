@@ -3,19 +3,17 @@ import PricingCard from './PricingCard';
 const Pricing = () => {
   const plans = [
     {
-      name: '6 Week Online Challenge - Jan 5th 2026',
+      name: 'Lift with EME - Monthly',
       price: 'Custom',
       features: [
-        'Flexible schedule - train anytime, anywhere',
-        'HD video demonstrations for every exercise',
-        'Cultural food integration meal plans',
-        'Weekly check-ins and motivation'
+        'Progressive, structured training built for real, lasting results',
+        'Build strength and lean muscle while staying functional and resilient',
+        'Effective at-home workouts that fit busy schedules',
+        'Expert programming that removes guesswork - train with confidence and consistency'
       ],
-      link: 'https://www.trainerize.me/profile/emelifts/?planGUID=3066f75bdf0f47d6b8a9b23a2db07468',
+      link: 'https://www.trainerize.me/checkout/emelifts/EMELYN.ESCOBIDO?planGUID=262791246d5549ceae96edfa38e59b05',
       popular: true,
-      badge: 'Most Popular',
-      highlight: '🔥 HOT DEAL',
-      savings: 'Save 30%'
+      badge: 'Signature Program'
     },
   ];
 
@@ -30,7 +28,7 @@ const Pricing = () => {
             Result-Driven Program
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            A comprehensive program tailored to your lifestyle and goals, including personalized coaching and cultural food integration.
+            A comprehensive at-home program tailored to your lifestyle and goals, with personalized coaching.
           </p>
         </div>
         
@@ -53,7 +51,7 @@ const Pricing = () => {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span>Cultural Food Integration</span>
+              <span>Progressive Programming</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>

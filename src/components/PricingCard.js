@@ -1,10 +1,10 @@
-const PricingCard = ({ plan, index }) => {
+const PricingCard = ({ plan }) => {
     return (
       <div className={`relative ${plan.popular ? 'lg:scale-105' : ''}`}>
         {/* Popular badge */}
         {plan.popular && (
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="bg-gradient-to-r from-pink-500 to-teal-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+            <div className="bg-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg shadow-pink-500/30 ring-1 ring-white/10">
               {plan.badge}
             </div>
           </div>
@@ -29,33 +29,7 @@ const PricingCard = ({ plan, index }) => {
                 <h3 className="text-2xl font-bold dark-card-title">
                   {plan.name}
                 </h3>
-                {plan.popular && (
-                  <div className="text-3xl">🔥</div>
-                )}
               </div>
-              
-              {/* Highlight and savings for popular plan */}
-              {plan.popular && plan.highlight && (
-                <div className="mb-4 p-3 bg-gradient-to-r from-pink-500/20 to-teal-500/20 rounded-lg border border-pink-500/30">
-                  <div className="flex items-center justify-between">
-                    <span className="text-pink-400 font-bold text-sm">{plan.highlight}</span>
-                    {plan.savings && (
-                      <span className="text-teal-400 font-bold text-sm bg-teal-500/20 px-2 py-1 rounded">
-                        {plan.savings}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-              
-              {plan.popular && (
-                <div className="mb-6">
-                  <div className="text-sm text-pink-400 mb-2">✨ Best Value</div>
-                  <div className="text-2xl font-bold text-white">
-                    Limited Time Offer
-                  </div>
-                </div>
-              )}
               
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, index) => (
@@ -68,8 +42,8 @@ const PricingCard = ({ plan, index }) => {
             </div>
             
             <div className="p-6 border-t border-gray-700/50 relative z-10">
-              <div className="btn-primary w-full text-center group-hover:scale-105 transition-transform duration-200">
-                {plan.popular ? 'Claim Your Spot Now' : 'Get Started Today'}
+              <div className={`${plan.popular ? 'btn-featured' : 'btn-primary'} w-full text-center group-hover:scale-105 transition-transform duration-200`}>
+                {plan.popular ? 'Enroll Now' : 'Get Started Today'}
                 <span className="ml-2">→</span>
               </div>
             </div>

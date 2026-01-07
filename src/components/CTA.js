@@ -30,26 +30,22 @@ const CTA = () => {
               className="btn-primary text-xl px-12 py-6 transform hover:scale-105 transition-all duration-200"
             >
               Start Your Journey Now
-              <span className="ml-2">🚀</span>
             </a>
             <a
               href="#pricing"
               className="btn-secondary text-xl px-12 py-6"
             >
               View Programs
-              <span className="ml-2">💪</span>
             </a>
           </div>
           
           {/* Urgency element */}
           <div className="bg-gradient-to-r from-pink-500/10 to-teal-500/10 rounded-2xl p-6 border border-pink-500/20">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="text-pink-400 animate-pulse">🔥</span>
-              <span className="text-pink-400 font-semibold">Limited Spots Available</span>
-              <span className="text-pink-400 animate-pulse">🔥</span>
+            <div className="text-pink-400 font-semibold text-center mb-2">
+              Limited Spots Available
             </div>
             <p className="text-gray-300">
-              Next 6-week challenge starts soon. Don't miss your chance to transform with personalized coaching.
+              Coaching spots fill quickly. Enroll now to start your next training block with a clear plan and accountability.
             </p>
           </div>
         </div>

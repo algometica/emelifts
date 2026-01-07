@@ -28,7 +28,6 @@ const ContactMe = () => {
                 className="btn-primary text-lg px-8 py-4"
               >
                 Get in Touch
-                <span className="ml-2">💬</span>
               </a>
               <a
                 href="https://www.instagram.com/emelifts/"
@@ -37,7 +36,6 @@ const ContactMe = () => {
                 className="btn-secondary text-lg px-8 py-4"
               >
                 Follow on Instagram
-                <span className="ml-2">📸</span>
               </a>
             </div>
             
@@ -45,21 +43,36 @@ const ContactMe = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-400">
               <div className="flex flex-col items-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center mb-3">
-                  <span className="text-xl">📧</span>
+                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M4 6h16v12H4z" />
+                    <path d="m22 6-10 7L2 6" />
+                  </svg>
                 </div>
                 <span className="font-semibold">Quick Response</span>
                 <span className="text-sm">Usually within 24 hours</span>
               </div>
               <div className="flex flex-col items-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center mb-3">
-                  <span className="text-xl">🎯</span>
+                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="8" />
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                  </svg>
                 </div>
                 <span className="font-semibold">Personalized Plan</span>
                 <span className="text-sm">Tailored to your goals</span>
               </div>
               <div className="flex flex-col items-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center mb-3">
-                  <span className="text-xl">🌍</span>
+                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M2 12h20" />
+                    <path d="M12 2a15 15 0 0 1 0 20" />
+                    <path d="M12 2a15 15 0 0 0 0 20" />
+                  </svg>
                 </div>
                 <span className="font-semibold">Cultural Integration</span>
                 <span className="text-sm">Honor your heritage</span>

@@ -22,7 +22,7 @@ const AboutMe = () => {
               <div className="relative">
                 <Image
                   src="/emelifts.png"
-                  alt="Em - Fitness Coach and Personal Trainer specializing in strength training and cultural food integration"
+                  alt="Em - Fitness coach and personal trainer specializing in strength training for women"
                   width={256}
                   height={256}
                   className="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gradient-to-r from-pink-500 to-teal-500 shadow-2xl"
@@ -30,7 +30,7 @@ const AboutMe = () => {
                   sizes="(max-width: 768px) 192px, 256px"
                 />
                 <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center text-2xl">
-                  💪
+                  <span className="text-white font-bold text-lg tracking-wide">EM</span>
                 </div>
               </div>
             </div>
@@ -39,10 +39,13 @@ const AboutMe = () => {
             <div className="flex-grow text-center lg:text-left">
               <div className="mb-6">
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
-                  Hi! I'm Em 👋
+                  Hi! I'm Em
                 </h3>
                 <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">
                   I train and coach women who want to change their lives to be stronger, fitter, and leaner. We lift heavy weights to build lean muscle to fight diseases and we eat our cultural foods for the best optimized health.
+                </p>
+                <p className="text-gray-400">
+                  Trusted by <span className="text-white font-semibold">800+</span> clients trained.
                 </p>
               </div>
               

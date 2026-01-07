@@ -5,9 +5,9 @@ import { structuredData, organizationStructuredData } from '../components/Struct
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Emelifts - Transform Your Body & Mind | Personalized Fitness Coaching',
-  description: 'Empowering women to become stronger, fitter, and leaner through personalized fitness coaching that celebrates cultural heritage. Join our 6-week challenges and transform your life.',
-  keywords: 'fitness coaching, women fitness, strength training, cultural food integration, personalized training, online fitness, in-person training',
+  title: 'Emelifts | Lift with EME - Monthly Strength Program',
+  description: 'Progressive at-home strength training with personalized coaching. Build strength, lean muscle, and confidence with structured programming. 800+ clients trained.',
+  keywords: 'women strength training, at-home workouts, strength program, fitness coaching, personalized training, progressive overload, lean muscle, injury resilience',
   authors: [{ name: 'Emelifts' }],
   creator: 'Emelifts',
   publisher: 'Emelifts',
@@ -21,8 +21,8 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Emelifts - Transform Your Body & Mind',
-    description: 'Empowering women to become stronger, fitter, and leaner through personalized fitness coaching that celebrates cultural heritage.',
+    title: 'Emelifts | Lift with EME - Monthly',
+    description: 'Progressive at-home strength training with personalized coaching. 800+ clients trained.',
     url: 'https://emelifts.com',
     siteName: 'Emelifts',
     images: [
@@ -38,8 +38,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Emelifts - Transform Your Body & Mind',
-    description: 'Empowering women to become stronger, fitter, and leaner through personalized fitness coaching.',
+    title: 'Emelifts | Lift with EME - Monthly',
+    description: 'Progressive at-home strength training with personalized coaching. 800+ clients trained.',
     images: ['/emelifts.png'],
   },
   robots: {
