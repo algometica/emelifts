@@ -3,7 +3,7 @@ const nextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  
+
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -11,12 +11,12 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
   },
-  
+
   // Experimental features for better performance
   experimental: {
     scrollRestoration: true,
   },
-  
+
   // Headers for security and performance
   async headers() {
     return [
