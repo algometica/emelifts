@@ -1,36 +1,43 @@
+import { ENROLL_URL, INTAKE_FORM_URL } from '../lib/links';
+
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24">
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-teal-500/10"></div>
-      
-      {/* Animated background elements - optimized for performance */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl animate-pulse-slow will-change-transform"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl animate-pulse-slow will-change-transform" style={{animationDelay: '1s'}}></div>
-      </div>
+    <section
+      className="relative flex min-h-[100dvh] min-h-screen flex-col items-center justify-center bg-[#f5f5f7] px-6 pb-20 pt-[calc(5rem+env(safe-area-inset-top))] sm:px-10 md:px-14"
+      aria-labelledby="hero-heading"
+    >
+      <div className="mx-auto w-full max-w-[692px] text-center">
+        <p className="mb-2 text-[17px] font-medium text-[#1d1d1f] md:text-[19px]">Lift with EME</p>
 
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-        <div className="animate-fade-in-up">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold leading-tight mb-8">
-            <span className="block text-pink-400">Stronger.</span>
-            <span className="block text-pink-400">Fitter.</span>
-            <span className="block text-pink-400">Leaner.</span>
-          </h1>
-          
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-            Transform your body and mind with personalized fitness coaching that celebrates your cultural heritage while building strength that lasts.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <a href="#pricing" className="btn-primary text-lg px-8 py-4">
-              Start Your Journey
-            </a>
-            <a href="#about" className="btn-secondary text-lg px-8 py-4">
-              Learn More
-            </a>
-          </div>
-        </div>
+        <h1
+          id="hero-heading"
+          className="font-hero text-[clamp(3rem,11vw,5rem)] font-black leading-[1.02] tracking-[-0.04em] text-[#1d1d1f]"
+        >
+          <span className="block">Hello,</span>
+          <span className="block">Stronger.</span>
+        </h1>
+
+        <a
+          href={ENROLL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary mt-10 px-10 text-[17px] md:mt-12"
+        >
+          Enroll
+        </a>
+
+        <p className="mt-5 max-w-[21rem] mx-auto text-[12px] leading-relaxed text-[#6e6e73] md:text-[13px]">
+          Coach-written training at home. 800+ women coached.{' '}
+          <a
+            href={INTAKE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#0066cc] hover:underline"
+          >
+            Contact
+          </a>
+          .
+        </p>
       </div>
     </section>
   );

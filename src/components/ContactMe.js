@@ -1,85 +1,47 @@
-import React from 'react';
+import { ENROLL_URL, INTAKE_FORM_URL } from '../lib/links';
 
 const ContactMe = () => {
-  const googleFormLink = 'https://forms.gle/SFtKRzZcq1wu7v8K8';
-
   return (
-    <section id="contact" className="py-20 relative">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/50 to-transparent"></div>
-      
-      <div className="container mx-auto relative z-10">
-        <div className="dark-card p-8 md:p-12 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-              Ready to Transform?
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-pink-500 to-teal-500 mx-auto mb-8"></div>
-            
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-              Have questions or want to discuss your fitness needs? Let's create a personalized plan that works for your lifestyle and celebrates your cultural heritage.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <a
-                href={googleFormLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-lg px-8 py-4"
-              >
-                Get in Touch
-              </a>
-              <a
-                href="https://www.instagram.com/emelifts/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary text-lg px-8 py-4"
-              >
-                Follow on Instagram
-              </a>
-            </div>
-            
-            {/* Contact info */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-400">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center mb-3">
-                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 6h16v12H4z" />
-                    <path d="m22 6-10 7L2 6" />
-                  </svg>
-                </div>
-                <span className="font-semibold">Quick Response</span>
-                <span className="text-sm">Usually within 24 hours</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center mb-3">
-                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="8" />
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M12 2v2" />
-                    <path d="M12 20v2" />
-                    <path d="M2 12h2" />
-                    <path d="M20 12h2" />
-                  </svg>
-                </div>
-                <span className="font-semibold">Personalized Plan</span>
-                <span className="text-sm">Tailored to your goals</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-teal-500 rounded-full flex items-center justify-center mb-3">
-                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M2 12h20" />
-                    <path d="M12 2a15 15 0 0 1 0 20" />
-                    <path d="M12 2a15 15 0 0 0 0 20" />
-                  </svg>
-                </div>
-                <span className="font-semibold">Cultural Integration</span>
-                <span className="text-sm">Honor your heritage</span>
-              </div>
-            </div>
-          </div>
+    <section
+      id="contact"
+      className="border-t border-black/[0.06] bg-[#f5f5f7] py-[4.5rem] md:py-28"
+      aria-labelledby="contact-heading"
+    >
+      <div className="container mx-auto max-w-[720px] px-4">
+        <h2
+          id="contact-heading"
+          className="text-center text-[32px] font-semibold tracking-tight text-[#1d1d1f] md:text-[40px]"
+        >
+          One last thing.
+        </h2>
+        <p className="mx-auto mt-4 max-w-[28rem] text-center text-[17px] leading-relaxed text-[#6e6e73] md:text-[19px]">
+          If you&apos;re on the fence, that&apos;s normal. Send a note. I&apos;ll tell you straight if
+          this is a fit, usually within a day.
+        </p>
+        <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
+          <a
+            href={INTAKE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-[17px]"
+          >
+            Message Em
+          </a>
+          <a
+            href={ENROLL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary text-[17px]"
+          >
+            Enroll now
+          </a>
         </div>
+        <p className="mt-10 text-center text-[13px] leading-snug text-[#6e6e73]">
+          Prefer scrolling?{' '}
+          <a href="#pricing" className="text-[#0066cc] hover:underline">
+            Back to program
+          </a>
+        </p>
       </div>
     </section>
   );

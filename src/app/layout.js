@@ -1,13 +1,36 @@
 import './globals.css';
-import { Inter } from 'next/font/google'
-import { structuredData, organizationStructuredData } from '../components/StructuredData'
+import { Inter, Nunito } from 'next/font/google';
+import { siteJsonLd } from '../components/StructuredData';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  adjustFontFallback: true,
+});
+
+/** Rounded heavy display, same role as Apple’s SF Pro Rounded on product heroes. */
+const nunitoHero = Nunito({
+  subsets: ['latin'],
+  weight: ['900'],
+  variable: '--font-hero-display',
+  display: 'swap',
+  adjustFontFallback: true,
+});
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#ffffff',
+};
 
 export const metadata = {
-  title: 'Emelifts | Lift with EME - Monthly Strength Program',
-  description: 'Progressive at-home strength training with personalized coaching. Build strength, lean muscle, and confidence with structured programming. 800+ clients trained.',
-  keywords: 'women strength training, at-home workouts, strength program, fitness coaching, personalized training, progressive overload, lean muscle, injury resilience',
+  title: 'Emelifts | Lift with EME. Strength coaching at home',
+  description:
+    'Stop guessing workouts. Coach-written strength training at home, with personal check-ins. 800+ women coached.',
+  keywords:
+    'women strength training, at-home workouts, strength program, fitness coaching, personalized training, progressive overload, lean muscle',
   authors: [{ name: 'Emelifts' }],
   creator: 'Emelifts',
   publisher: 'Emelifts',
@@ -21,8 +44,9 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Emelifts | Lift with EME - Monthly',
-    description: 'Progressive at-home strength training with personalized coaching. 800+ clients trained.',
+    title: 'Emelifts | Lift with EME',
+    description:
+      'Coach-led strength at home. Structured plan, real accountability. 800+ women coached.',
     url: 'https://emelifts.com',
     siteName: 'Emelifts',
     images: [
@@ -30,7 +54,7 @@ export const metadata = {
         url: '/emelifts.png',
         width: 1200,
         height: 630,
-        alt: 'Emelifts - Fitness Coaching',
+        alt: 'Emelifts strength coaching',
       },
     ],
     locale: 'en_US',
@@ -38,8 +62,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Emelifts | Lift with EME - Monthly',
-    description: 'Progressive at-home strength training with personalized coaching. 800+ clients trained.',
+    title: 'Emelifts | Lift with EME',
+    description:
+      'Coach-led strength at home. Structured plan, real accountability. 800+ women coached.',
     images: ['/emelifts.png'],
   },
   robots: {
@@ -53,29 +78,21 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-}
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#0a0a0a" />
         <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationStructuredData),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} ${inter.variable} ${nunitoHero.variable} antialiased`}>
+        {children}
+      </body>
     </html>
-  )
+  );
 }

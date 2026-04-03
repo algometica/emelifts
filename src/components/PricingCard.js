@@ -1,59 +1,37 @@
 const PricingCard = ({ plan }) => {
-    return (
-      <div className={`relative ${plan.popular ? 'lg:scale-105' : ''}`}>
-        {/* Popular badge */}
-        {plan.popular && (
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="bg-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg shadow-pink-500/30 ring-1 ring-white/10">
-              {plan.badge}
-            </div>
-          </div>
+  return (
+    <div className="relative">
+      <a
+        href={plan.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Enroll in ${plan.name}`}
+        className="block rounded-[18px] border border-black/[0.08] bg-[#f5f5f7] px-8 py-10 md:px-10 md:py-12 [@media(hover:hover)]:hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
+      >
+        {plan.badge && (
+          <p className="mb-6 text-center text-[12px] font-medium uppercase tracking-[0.06em] text-[#6e6e73]">
+            {plan.badge}
+          </p>
         )}
-        
-        <a
-          href={plan.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block h-full group"
-        >
-          <div className={`dark-card h-full flex flex-col relative overflow-hidden ${
-            plan.popular ? 'ring-2 ring-pink-500/50' : ''
-          }`}>
-            {/* Gradient overlay for popular card */}
-            {plan.popular && (
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-teal-500/5"></div>
-            )}
-            
-            <div className="p-8 flex-grow relative z-10">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold dark-card-title">
-                  {plan.name}
-                </h3>
-              </div>
-              
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3 dark-card-text">
-                    <div className="w-2 h-2 bg-pink-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="leading-relaxed">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="p-6 border-t border-gray-700/50 relative z-10">
-              <div className={`${plan.popular ? 'btn-featured' : 'btn-primary'} w-full text-center group-hover:scale-105 transition-transform duration-200`}>
-                {plan.popular ? 'Enroll Now' : 'Get Started Today'}
-                <span className="ml-2">→</span>
-              </div>
-            </div>
-            
-            {/* Hover effect overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
-        </a>
-      </div>
-    );
-  };
-  
-  export default PricingCard;
+        <h3 className="mb-8 text-center text-[21px] font-semibold text-[#1d1d1f] md:text-[24px]">
+          {plan.name}
+        </h3>
+        <ul className="mx-auto mb-10 max-w-sm space-y-4 text-left">
+          {plan.features.map((feature, index) => (
+            <li
+              key={index}
+              className="border-l-2 border-black/[0.12] pl-4 text-[15px] leading-snug text-[#6e6e73] md:text-[17px]"
+            >
+              {feature}
+            </li>
+          ))}
+        </ul>
+        <div className="flex justify-center">
+          <span className="btn-primary pointer-events-none text-center">Enroll</span>
+        </div>
+      </a>
+    </div>
+  );
+};
+
+export default PricingCard;

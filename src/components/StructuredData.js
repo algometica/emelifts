@@ -1,57 +1,52 @@
-export const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Emelifts",
-  "jobTitle": "Fitness Coach & Personal Trainer",
-  "description": "Empowering women to become stronger, fitter, and leaner through personalized fitness coaching that celebrates cultural heritage.",
-  "url": "https://emelifts.com",
-  "image": "https://emelifts.com/emelifts.png",
-  "sameAs": [
-    "https://www.instagram.com/emelifts/"
-  ],
-  "offers": [
+import { INTAKE_FORM_URL, INSTAGRAM_URL } from '../lib/links';
+
+const person = {
+  '@type': 'Person',
+  '@id': 'https://emelifts.com/#person',
+  name: 'Emelifts',
+  jobTitle: 'Fitness Coach & Personal Trainer',
+  description:
+    'Coach-led strength training for women at home. Structured programming, check-ins, and accountability.',
+  url: 'https://emelifts.com',
+  image: 'https://emelifts.com/emelifts.png',
+  sameAs: [INSTAGRAM_URL],
+  offers: [
     {
-      "@type": "Service",
-      "name": "Lift with EME - Monthly",
-      "description": "Progressive, structured at-home strength training with personalized coaching",
-      "provider": {
-        "@type": "Person",
-        "name": "Emelifts"
-      }
+      '@type': 'Service',
+      name: 'Lift with EME, Monthly',
+      description:
+        'Monthly strength program with progressive at-home training and personalized coaching check-ins.',
+      provider: { '@type': 'Person', name: 'Emelifts' },
     },
-    {
-      "@type": "Service", 
-      "name": "6 Week In Person Challenge",
-      "description": "Semi-private in-person training with personalized form correction",
-      "provider": {
-        "@type": "Person",
-        "name": "Emelifts"
-      }
-    }
   ],
-  "knowsAbout": [
-    "Strength Training",
+  knowsAbout: [
+    'Strength Training',
     "Women's Fitness",
-    "Cultural Food Integration",
-    "Personal Training",
-    "Weight Lifting",
-    "Muscle Building"
-  ]
+    'Personal Training',
+    'Weight Lifting',
+    'Muscle Building',
+    'At-home workouts',
+  ],
 };
 
-export const organizationStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Emelifts",
-  "description": "Personalized fitness coaching for women that celebrates cultural heritage while building strength and confidence.",
-  "url": "https://emelifts.com",
-  "logo": "https://emelifts.com/emelifts_logo.svg",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "url": "https://forms.gle/SFtKRzZcq1wu7v8K8"
+const organization = {
+  '@type': 'Organization',
+  '@id': 'https://emelifts.com/#organization',
+  name: 'Emelifts',
+  description:
+    'Strength coaching for women: structured at-home training with a real coach in your corner.',
+  url: 'https://emelifts.com',
+  logo: 'https://emelifts.com/emelifts_logo.svg',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    url: INTAKE_FORM_URL,
   },
-  "sameAs": [
-    "https://www.instagram.com/emelifts/"
-  ]
+  sameAs: [INSTAGRAM_URL],
+};
+
+/** Single JSON-LD payload for layout (one script tag). */
+export const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [person, organization],
 };
