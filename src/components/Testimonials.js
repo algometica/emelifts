@@ -53,7 +53,7 @@ export default function Testimonials() {
                   <StarIcon key={i} />
                 ))}
               </div>
-              <blockquote className="mb-6 text-left text-[15px] leading-relaxed text-[#6e6e73] md:text-center">
+              <blockquote className="mb-6 text-[15px] leading-relaxed text-[#6e6e73]">
                 &ldquo;{t.text}&rdquo;
               </blockquote>
               <figcaption className="border-t border-black/[0.06] pt-4 text-[15px] font-medium text-[#1d1d1f]">
