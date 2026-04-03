@@ -9,17 +9,17 @@ function StarIcon() {
 const testimonials = [
   {
     name: 'Morgan T.',
-    text: "I'm on 5 a.m. workouts before my kids get up. Having the week mapped out already means I'm not standing in my garage deciding what to do.",
+    text: "5 a.m. is not my personality, but doing it before the kids wake up is the only window I get. I like that I'm not standing in the garage at 5:10 still picking what to do. My husband definitely thinks I'm crazy.",
     rating: 5,
   },
   {
     name: 'Jaspreet K.',
-    text: 'Between work and family I was never going to live at the gym. Training at home with a real program (and someone who actually answers my messages) has been the first thing I have stuck with in years.',
+    text: "I'm not going to pretend I was going to drive to a gym four times a week. My mom helps with the kids and I didn't want workouts to turn into another thing I had to squeeze in. Spare room, headphones on, and I can message when something feels off. That's been the difference for me.",
     rating: 5,
   },
   {
     name: 'Nicole B.',
-    text: 'I used to avoid anything heavier than dumbbells. The demo videos are short and I rewatched the same one probably twenty times until my setup felt right. That alone was worth it.',
+    text: 'I was weirdly scared of the barbell. The clips are short so I just replay the same squat setup until it feels boring, which I guess means I finally learned it. Still not perfect, but I add weight now instead of avoiding that corner of the room.',
     rating: 5,
   },
 ];
