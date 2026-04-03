@@ -8,23 +8,23 @@ function StarIcon() {
 
 const testimonials = [
   {
-    name: 'Sarah M.',
-    text: '5 AM workouts, zero guesswork, and check-ins that kept me honest.',
+    name: 'Morgan T.',
+    text: "I'm on 5 a.m. workouts before my kids get up. Having the week mapped out already means I'm not standing in my garage deciding what to do.",
     rating: 5,
   },
   {
-    name: 'Susie H.',
-    text: 'Home training with guidance I could actually stick to.',
+    name: 'Jaspreet K.',
+    text: 'Between work and family I was never going to live at the gym. Training at home with a real program (and someone who actually answers my messages) has been the first thing I have stuck with in years.',
     rating: 5,
   },
   {
-    name: 'Jennifer K.',
-    text: 'Finally confident with the bar. Rewatched demos until it clicked.',
+    name: 'Nicole B.',
+    text: 'I used to avoid anything heavier than dumbbells. The demo videos are short and I rewatched the same one probably twenty times until my setup felt right. That alone was worth it.',
     rating: 5,
   },
 ];
 
-const Testimonials = () => {
+export default function Testimonials() {
   return (
     <section
       id="testimonials"
@@ -53,7 +53,7 @@ const Testimonials = () => {
                   <StarIcon key={i} />
                 ))}
               </div>
-              <blockquote className="mb-6 text-[15px] leading-relaxed text-[#6e6e73]">
+              <blockquote className="mb-6 text-left text-[15px] leading-relaxed text-[#6e6e73] md:text-center">
                 &ldquo;{t.text}&rdquo;
               </blockquote>
               <figcaption className="border-t border-black/[0.06] pt-4 text-[15px] font-medium text-[#1d1d1f]">
@@ -65,6 +65,4 @@ const Testimonials = () => {
       </div>
     </section>
   );
-};
-
-export default Testimonials;
+}
