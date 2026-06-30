@@ -1,4 +1,4 @@
-import { ENROLL_URL, INTAKE_FORM_URL } from '../lib/links';
+import { CHALLENGE_URL, INTAKE_FORM_URL } from '../lib/links';
 
 const Hero = () => {
   return (
@@ -18,7 +18,7 @@ const Hero = () => {
         </h1>
 
         <a
-          href={ENROLL_URL}
+          href={CHALLENGE_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-primary mt-10 px-10 text-[17px] md:mt-12"

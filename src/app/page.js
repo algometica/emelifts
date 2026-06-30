@@ -5,8 +5,8 @@ import Logo from '../components/Logo';
 import ContactMe from '../components/ContactMe';
 import AboutMe from '../components/AboutMe';
 import MobileMenu from '../components/MobileMenu';
-import Testimonials from '../components/Testimonials';
-import { ENROLL_URL, INTAKE_FORM_URL } from '../lib/links';
+import Transformations from '../components/Transformations';
+import { ENROLL_URL, CHALLENGE_URL, INTAKE_FORM_URL } from '../lib/links';
 import { NAV } from '../lib/nav';
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
                 </a>
               ))}
               <a
-                href={ENROLL_URL}
+                href={CHALLENGE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary text-[12px] px-5"
@@ -44,7 +44,7 @@ export default function Home() {
                 Enroll
               </a>
             </nav>
-            <MobileMenu enrollUrl={ENROLL_URL} formUrl={INTAKE_FORM_URL} />
+            <MobileMenu enrollUrl={CHALLENGE_URL} formUrl={INTAKE_FORM_URL} />
           </div>
         </div>
       </header>
@@ -53,7 +53,7 @@ export default function Home() {
         <Hero />
         <Pricing />
         <AboutMe />
-        <Testimonials />
+        <Transformations />
         <ContactMe />
       </main>
 
