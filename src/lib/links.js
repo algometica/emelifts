@@ -1,6 +1,6 @@
 /** Single source for outbound conversion URLs */
 export const WEDDING_URL =
-  'https://www.trainerize.me/profile/emelifts/?planGUID=a83bb3d3a11f4e5f8374b68fd0c2fa94';
+  'https://docs.google.com/forms/d/e/1FAIpQLSfDdJk_0I7V1Pk2oLxHyFQqM9e4njWb3kdpmq5MIYEEV0V1Nw/viewform';
 
 export const CHALLENGE_URL =
   'https://www.trainerize.me/profile/emelifts/?planGUID=3066f75bdf0f47d6b8a9b23a2db07468';
