@@ -14,8 +14,6 @@ const PricingCard = ({ plan, dark = false, bgClass }) => {
     <div className="relative">
       <a
         href={plan.link}
-        target="_blank"
-        rel="noopener noreferrer"
         aria-label={`${plan.cta ?? 'Enroll'} in ${plan.name}`}
         className={`block rounded-[18px] border ${cardBorder} ${cardBg} px-8 py-10 md:px-10 md:py-12 [@media(hover:hover)]:hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]`}
       >

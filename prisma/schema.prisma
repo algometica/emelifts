@@ -1,0 +1,189 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String?
+  name          String
+  role          String   @default("member")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  memberships        Membership[]
+  scheduledSessions  ScheduledSession[]
+  habits             Habit[]
+  habitLogs          HabitLog[]
+  messagesSent       Message[]          @relation("MessagesSent")
+  messagesReceived   Message[]          @relation("MessagesReceived")
+  progressPhotos     ProgressPhoto[]
+  bodyStats          BodyStat[]
+  enrollments        Enrollment[]
+}
+
+model Membership {
+  id                     String    @id @default(cuid())
+  userId                 String
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan                   String
+  status                 String    @default("pending")
+  startDate              DateTime?
+  endDate                DateTime?
+  paddleCustomerId       String    @default("")
+  paddleSubscriptionId   String    @default("")
+  paddleTransactionId    String    @default("")
+  programId              String?
+  program                Program?  @relation(fields: [programId], references: [id])
+  createdAt              DateTime  @default(now())
+}
+
+model Program {
+  id           String       @id @default(cuid())
+  name         String
+  description  String       @default("")
+  planKey      String       @unique @default("")
+  workouts     Workout[]
+  memberships  Membership[]
+}
+
+model Workout {
+  id           String              @id @default(cuid())
+  programId    String
+  program      Program             @relation(fields: [programId], references: [id], onDelete: Cascade)
+  name         String
+  durationMin  Int                 @default(40)
+  notes        String              @default("")
+  dayOffset    Int                 @default(0)
+  sortOrder    Int                 @default(0)
+  exercises    Exercise[]
+  sessions     ScheduledSession[]
+}
+
+model Movement {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  youtubeUrl  String     @default("")
+  notes       String     @default("")
+  exercises   Exercise[]
+}
+
+model Exercise {
+  id         String     @id @default(cuid())
+  workoutId  String
+  workout    Workout    @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  movementId String?
+  movement   Movement?  @relation(fields: [movementId], references: [id])
+  name       String
+  sortOrder  Int        @default(0)
+  sets       Int        @default(3)
+  reps       String     @default("8-10")
+  restSec    Int        @default(90)
+  notes      String     @default("")
+  mediaUrl   String     @default("")
+  setLogs    SetLog[]
+}
+
+model ScheduledSession {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutId   String
+  workout     Workout   @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  date        String
+  status      String    @default("scheduled")
+  completedAt DateTime?
+  setLogs     SetLog[]
+
+  @@unique([userId, date, workoutId])
+  @@index([userId, date])
+}
+
+model SetLog {
+  id         String            @id @default(cuid())
+  sessionId  String
+  session    ScheduledSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  exerciseId String
+  exercise   Exercise          @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  setIndex   Int
+  weight     Float?
+  reps       Int?
+  rpe        Float?
+}
+
+model Habit {
+  id     String     @id @default(cuid())
+  userId String
+  user   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name   String
+  logs   HabitLog[]
+}
+
+model HabitLog {
+  id        String  @id @default(cuid())
+  habitId   String
+  habit     Habit   @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String
+  completed Boolean @default(true)
+
+  @@unique([habitId, date])
+}
+
+model Message {
+  id         String    @id @default(cuid())
+  fromUserId String
+  fromUser   User      @relation("MessagesSent", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUserId   String
+  toUser     User      @relation("MessagesReceived", fields: [toUserId], references: [id], onDelete: Cascade)
+  body       String
+  imageUrl   String    @default("")
+  createdAt  DateTime  @default(now())
+  readAt     DateTime?
+}
+
+model ProgressPhoto {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  imageUrl  String
+  caption   String   @default("")
+  createdAt DateTime @default(now())
+}
+
+model BodyStat {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String
+  weight    Float?
+  notes     String   @default("")
+  createdAt DateTime @default(now())
+}
+
+model MagicLink {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+}
+
+model Enrollment {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  plan           String
+  acceptedTerms  Boolean  @default(false)
+  status         String   @default("pending")
+  notes          String   @default("")
+  passwordHash   String   @default("")
+  userId         String?
+  user           User?    @relation(fields: [userId], references: [id])
+  createdAt      DateTime @default(now())
+}

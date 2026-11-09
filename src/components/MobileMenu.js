@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { NAV } from '../lib/nav';
 
-export default function MobileMenu({ enrollUrl, formUrl }) {
+export default function MobileMenu({ enrollUrl, formUrl, loginUrl }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -58,13 +58,12 @@ export default function MobileMenu({ enrollUrl, formUrl }) {
             </nav>
 
             <div className="border-t border-black/[0.08] p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-              <a
-                href={enrollUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={close}
-                className="btn-primary mb-3 w-full text-center"
-              >
+              {loginUrl ? (
+                <a href={loginUrl} onClick={close} className="btn-secondary mb-3 w-full text-center">
+                  Log in
+                </a>
+              ) : null}
+              <a href={enrollUrl} onClick={close} className="btn-primary mb-3 w-full text-center">
                 Enroll
               </a>
               <a

@@ -1,6 +1,7 @@
 import './globals.css';
 import { Inter, Nunito } from 'next/font/google';
 import { siteJsonLd } from '../components/StructuredData';
+import RegisterSW from '../components/app/RegisterSW';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -78,6 +79,12 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    title: 'Emelifts',
+    statusBarStyle: 'default',
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -91,6 +98,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${inter.className} ${inter.variable} ${nunitoHero.variable} antialiased`}>
+        <RegisterSW />
         {children}
       </body>
     </html>

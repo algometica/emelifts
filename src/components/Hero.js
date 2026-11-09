@@ -17,12 +17,7 @@ const Hero = () => {
           <span className="block">Stronger.</span>
         </h1>
 
-        <a
-          href={CHALLENGE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary mt-10 px-10 text-[17px] md:mt-12"
-        >
+        <a href={CHALLENGE_URL} className="btn-primary mt-10 px-10 text-[17px] md:mt-12">
           Enroll
         </a>
 

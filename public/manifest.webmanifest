@@ -1,0 +1,17 @@
+{
+  "name": "Emelifts",
+  "short_name": "Emelifts",
+  "description": "Coach-written strength training in the browser.",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/emelifts.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

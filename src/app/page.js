@@ -6,7 +6,7 @@ import ContactMe from '../components/ContactMe';
 import AboutMe from '../components/AboutMe';
 import MobileMenu from '../components/MobileMenu';
 import Transformations from '../components/Transformations';
-import { ENROLL_URL, CHALLENGE_URL, INTAKE_FORM_URL } from '../lib/links';
+import { CHALLENGE_URL, INTAKE_FORM_URL, LOGIN_URL } from '../lib/links';
 import { NAV } from '../lib/nav';
 
 export default function Home() {
@@ -35,16 +35,14 @@ export default function Home() {
                   {label}
                 </a>
               ))}
-              <a
-                href={CHALLENGE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-[12px] px-5"
-              >
+              <a href={LOGIN_URL} className="text-[12px] text-[#1d1d1f] hover:underline">
+                Log in
+              </a>
+              <a href={CHALLENGE_URL} className="btn-primary text-[12px] px-5">
                 Enroll
               </a>
             </nav>
-            <MobileMenu enrollUrl={CHALLENGE_URL} formUrl={INTAKE_FORM_URL} />
+            <MobileMenu enrollUrl={CHALLENGE_URL} formUrl={INTAKE_FORM_URL} loginUrl={LOGIN_URL} />
           </div>
         </div>
       </header>

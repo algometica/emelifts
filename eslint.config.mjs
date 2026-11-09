@@ -1,21 +1,12 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import nextVitals from 'eslint-config-next/core-web-vitals';
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals"),
+  { ignores: ['.next/**', 'node_modules/**', 'prisma/dev.db'] },
+  ...nextVitals,
   {
     rules: {
-      // Disable TypeScript-specific rules since we're using JavaScript
-      "@typescript-eslint/no-unused-vars": "off",
-      "@typescript-eslint/no-explicit-any": "off",
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ];

@@ -1,8 +1,9 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Logo = () => {
   return (
-    <a href="/" className="block opacity-90 hover:opacity-100 transition-opacity">
+    <Link href="/" className="block opacity-90 hover:opacity-100 transition-opacity">
       <Image
         src="/emelifts_logo.svg"
         alt="Emelifts"
@@ -13,7 +14,7 @@ const Logo = () => {
         priority
         fetchPriority="high"
       />
-    </a>
+    </Link>
   );
 };
 

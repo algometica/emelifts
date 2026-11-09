@@ -118,9 +118,37 @@ body {
 
 .btn-primary:focus-visible,
 .btn-primary-dark:focus-visible,
-.btn-secondary:focus-visible {
+.btn-secondary:focus-visible,
+.field:focus-visible {
   outline: 2px solid #0071e3;
   outline-offset: 2px;
+}
+
+.field {
+  height: 44px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  padding: 0 12px;
+  font-size: 16px;
+  color: #1d1d1f;
+}
+
+.card {
+  border-radius: 22px;
+  background: #fff;
+  padding: 1.25rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #f5f5f7;
+  padding: 0.2rem 0.6rem;
+  font-size: 12px;
+  color: #6e6e73;
 }
 
 img {

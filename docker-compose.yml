@@ -1,0 +1,15 @@
+# Local Postgres when you are not on Neon yet.
+# Production: set DATABASE_URL to your Neon pooled URL.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: emelifts
+      POSTGRES_PASSWORD: emelifts
+      POSTGRES_DB: emelifts
+    ports:
+      - "5432:5432"
+    volumes:
+      - emelifts_pg:/var/lib/postgresql/data
+volumes:
+  emelifts_pg:
