@@ -98,12 +98,6 @@ export default function PaddleCheckout({ plans, selected, clientToken, sandbox, 
           </select>
         </label>
       )}
-      <label className="flex items-start gap-3 text-[14px] leading-snug text-[#6e6e73]">
-        <input name="terms" type="checkbox" required className="mt-1" />
-        <span>
-          I understand this is app access, not in-person coaching.
-        </span>
-      </label>
       {error ? <p className="text-[14px] text-[#9B3B1A]">{error}</p> : null}
       <button type="submit" disabled={pending} className="btn-primary w-full">
         {pending ? 'Opening checkout…' : 'Pay'}

@@ -224,10 +224,9 @@ export async function startPaddleCheckout(formData) {
   const name = cleanText(formData.get('name'), 80);
   const email = cleanEmail(formData.get('email'));
   const plan = String(formData.get('plan') ?? 'monthly');
-  const accepted = formData.get('terms') === 'on';
   const password = String(formData.get('password') ?? '');
-  if (!name || !email || !accepted) {
-    return { error: 'Name, email, and terms are required.' };
+  if (!name || !email) {
+    return { error: 'Name and email are required.' };
   }
   if (password.length < 8 || password.length > 200) {
     return { error: 'Password must be 8 to 200 characters.' };
@@ -245,7 +244,6 @@ export async function startPaddleCheckout(formData) {
       name,
       email,
       plan,
-      acceptedTerms: true,
       status: 'pending',
       passwordHash,
     },
