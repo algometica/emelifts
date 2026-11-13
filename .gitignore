@@ -34,6 +34,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# coach logins and other local notes
+docs/*.local.md
+
 # local sqlite + uploads
 /prisma/dev.db
 /prisma/dev.db-journal

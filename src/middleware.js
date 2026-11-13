@@ -1,6 +1,9 @@
+import NextAuth from 'next-auth';
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
-import { clientIp, tooMany } from '@/lib/limit';
+import { authConfig } from './auth.config';
+import { clientIp, tooMany } from './lib/limit';
+
+const { auth } = NextAuth(authConfig);
 
 export default auth((request) => {
   const { pathname } = request.nextUrl;

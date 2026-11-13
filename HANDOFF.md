@@ -87,6 +87,7 @@ Webhook: `transaction.completed` (one-time wedding/challenge) and subscription e
 ## Auth / ops
 
 - Coach seeded via `COACH_EMAIL` / `COACH_PASSWORD` (rotate; do not commit)
+- Do not put passwords in `docs/COACH.md` or any tracked file
 - `AUTH_SECRET`, `AUTH_URL` must match the deployed origin
 - Neon is production DB. `prisma db push` for schema
 - Rate limit on auth POSTs (`src/lib/limit.js`)

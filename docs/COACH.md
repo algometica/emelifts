@@ -5,10 +5,10 @@ This is your coaching app. Clients pay on the website, then train and message yo
 ## Log in
 
 1. Go to [emelifts.com/login](https://emelifts.com/login)
-2. Use the coach email and password you were given
+2. Use the coach email and password Harsh texts you (not stored in this file)
 3. You land on **Clients**
 
-If a password is still the old demo one, change it under **Account**.
+To see what a client sees, sign out and log in with the test-client login from that same text. Use two browsers, or sign out between them. Change passwords under **Account** (coach) or **Profile** (client) once you are in.
 
 ## What clients see
 
