@@ -1,5 +1,6 @@
 import PricingCard from './PricingCard';
-import { WEDDING_URL } from '../lib/links';
+import { PUBLIC_ENROLL_URL } from '../lib/links';
+import { publicCta } from '../lib/plans';
 
 const plan = {
   name: '12 Week Wedding Prep',
@@ -9,8 +10,8 @@ const plan = {
     'Look amazing in every outfit, every event',
     '12 weeks of targeted bridal training',
   ],
-  link: WEDDING_URL,
-  cta: 'Start Prep',
+  link: PUBLIC_ENROLL_URL,
+  cta: publicCta(),
 };
 
 const Pricing = () => {

@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import PaddleCheckout from '@/components/app/PaddleCheckout';
-import { PLANS } from '@/lib/plans';
+import { PLANS, PUBLIC_PLAN_ID } from '@/lib/plans';
 
 export const metadata = { title: 'Enroll | Emelifts' };
 
 export default async function EnrollPage({ searchParams }) {
   const params = await searchParams;
-  const requested = String(params?.plan || 'wedding');
+  const requested = String(params?.plan || PUBLIC_PLAN_ID);
   const selected = ['monthly', 'challenge', 'wedding'].includes(requested)
     ? requested
-    : 'wedding';
+    : PUBLIC_PLAN_ID;
   const plans = PLANS.filter((plan) => plan.id === selected);
   const paddleEnv = process.env.PADDLE_ENV;
   const clientToken = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '';

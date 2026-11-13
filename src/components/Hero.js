@@ -1,4 +1,5 @@
-import { WEDDING_URL, INTAKE_FORM_URL } from '../lib/links';
+import { INTAKE_FORM_URL, PUBLIC_ENROLL_URL } from '../lib/links';
+import { publicCta } from '../lib/plans';
 
 const Hero = () => {
   return (
@@ -17,8 +18,8 @@ const Hero = () => {
           <span className="block">Stronger.</span>
         </h1>
 
-        <a href={WEDDING_URL} className="btn-primary mt-10 px-10 text-[17px] md:mt-12">
-          Start Prep
+        <a href={PUBLIC_ENROLL_URL} className="btn-primary mt-10 px-10 text-[17px] md:mt-12">
+          {publicCta()}
         </a>
 
         <p className="mt-5 max-w-[21rem] mx-auto text-[12px] leading-relaxed text-[#6e6e73] md:text-[13px]">

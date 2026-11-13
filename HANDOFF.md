@@ -27,7 +27,7 @@ Next 16 docs live under `node_modules/next/dist/docs/`. `AGENTS.md` is auto-rewr
 
 ## Public product (now)
 
-Homepage sells **one** plan: **12 Week Wedding Prep** (about CA$444 one-time). CTAs go to `/enroll?plan=wedding`.
+Homepage sells **one** plan, set by `PUBLIC_PLAN_ID` in `src/lib/plans.js` (currently `wedding`). Header is Program + Log in + that plan’s CTA (`publicCta()`). Flip `PUBLIC_PLAN_ID` (and the pricing card copy) when another program is public.
 
 Hidden enroll links still work:
 
@@ -39,7 +39,7 @@ Coach can still run all three calendars in `/coach/programs`.
 
 ## Member flow
 
-1. Home → Start Prep → `/enroll?plan=wedding`
+1. Home → public CTA (`publicCta()`, now Start Prep) → `/enroll?plan=` + `PUBLIC_PLAN_ID`
 2. Name, email, password, terms → Paddle overlay (sandbox until live keys)
 3. `/enroll/thanks` then `/login`
 4. Paddle webhook `POST /api/webhooks/paddle` must call `grantAppAccess` or the member stays on `/app/waiting`

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { NAV } from '../lib/nav';
 
-export default function MobileMenu({ enrollUrl, formUrl, loginUrl }) {
+export default function MobileMenu({ enrollUrl, ctaLabel, loginUrl }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -63,17 +63,8 @@ export default function MobileMenu({ enrollUrl, formUrl, loginUrl }) {
                   Log in
                 </a>
               ) : null}
-              <a href={enrollUrl} onClick={close} className="btn-primary mb-3 w-full text-center">
-                Start Prep
-              </a>
-              <a
-                href={formUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={close}
-                className="btn-secondary w-full text-center text-[17px]"
-              >
-                Message Em
+              <a href={enrollUrl} onClick={close} className="btn-primary w-full text-center">
+                {ctaLabel || 'Enroll'}
               </a>
             </div>
           </div>

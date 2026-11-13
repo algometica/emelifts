@@ -1,4 +1,4 @@
-import { INSTAGRAM_URL } from '../lib/links';
+import { INSTAGRAM_URL, LOGIN_URL } from '../lib/links';
 import { NAV } from '../lib/nav';
 
 export default function Footer() {
@@ -16,16 +16,18 @@ export default function Footer() {
           <div>
             <p className="text-[12px] font-semibold uppercase tracking-wider text-[#1d1d1f]">Links</p>
             <ul className="mt-3 space-y-2 text-[13px] text-[#6e6e73]">
-              {NAV.map(({ href, label, emphasize }) => (
+              {NAV.map(({ href, label }) => (
                 <li key={href}>
-                  <a
-                    href={href}
-                    className={`inline-flex min-h-[44px] items-center hover:text-[#1d1d1f] md:min-h-0 ${emphasize ? 'font-semibold' : ''}`}
-                  >
+                  <a href={href} className="inline-flex min-h-[44px] items-center hover:text-[#1d1d1f] md:min-h-0">
                     {label}
                   </a>
                 </li>
               ))}
+              <li>
+                <a href={LOGIN_URL} className="inline-flex min-h-[44px] items-center hover:text-[#1d1d1f] md:min-h-0">
+                  Log in
+                </a>
+              </li>
             </ul>
           </div>
 

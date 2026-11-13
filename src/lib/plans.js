@@ -5,6 +5,23 @@ export const PLAN_NAMES = {
   complimentary: 'Complimentary',
 };
 
+/** Featured plan on the public site. Flip this when another program is on sale. */
+export const PUBLIC_PLAN_ID = 'wedding';
+
+const PUBLIC_CTA_BY_PLAN = {
+  wedding: 'Start Prep',
+  challenge: 'Start Challenge',
+  monthly: 'Join',
+};
+
+export function publicCta() {
+  return PUBLIC_CTA_BY_PLAN[PUBLIC_PLAN_ID] || 'Enroll';
+}
+
+export function publicEnrollUrl() {
+  return `/enroll?plan=${PUBLIC_PLAN_ID}`;
+}
+
 export function planName(id) {
   return PLAN_NAMES[id] || id || 'No plan';
 }

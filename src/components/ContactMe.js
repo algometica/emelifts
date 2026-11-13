@@ -1,4 +1,5 @@
-import { WEDDING_URL, INTAKE_FORM_URL } from '../lib/links';
+import { INTAKE_FORM_URL, PUBLIC_ENROLL_URL } from '../lib/links';
+import { publicCta } from '../lib/plans';
 
 const ContactMe = () => {
   return (
@@ -27,8 +28,8 @@ const ContactMe = () => {
           >
             Message Em
           </a>
-          <a href={WEDDING_URL} className="btn-secondary text-[17px]">
-            Start Prep
+          <a href={PUBLIC_ENROLL_URL} className="btn-secondary text-[17px]">
+            {publicCta()}
           </a>
         </div>
         <p className="mt-10 text-center text-[13px] leading-snug text-[#6e6e73]">

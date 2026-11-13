@@ -6,8 +6,9 @@ import ContactMe from '../components/ContactMe';
 import AboutMe from '../components/AboutMe';
 import MobileMenu from '../components/MobileMenu';
 import Transformations from '../components/Transformations';
-import { WEDDING_URL, INTAKE_FORM_URL, LOGIN_URL } from '../lib/links';
+import { LOGIN_URL, PUBLIC_ENROLL_URL } from '../lib/links';
 import { NAV } from '../lib/nav';
+import { publicCta } from '../lib/plans';
 
 export default function Home() {
   return (
@@ -38,11 +39,11 @@ export default function Home() {
               <a href={LOGIN_URL} className="text-[12px] text-[#1d1d1f] hover:underline">
                 Log in
               </a>
-              <a href={WEDDING_URL} className="btn-primary text-[12px] px-5">
-                Start Prep
+              <a href={PUBLIC_ENROLL_URL} className="btn-primary text-[12px] px-5">
+                {publicCta()}
               </a>
             </nav>
-            <MobileMenu enrollUrl={WEDDING_URL} formUrl={INTAKE_FORM_URL} loginUrl={LOGIN_URL} />
+            <MobileMenu enrollUrl={PUBLIC_ENROLL_URL} ctaLabel={publicCta()} loginUrl={LOGIN_URL} />
           </div>
         </div>
       </header>
