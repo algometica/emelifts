@@ -1,3 +1,14 @@
+export const PLAN_NAMES = {
+  monthly: 'Monthly',
+  challenge: '6 week challenge',
+  wedding: 'Wedding prep',
+  complimentary: 'Complimentary',
+};
+
+export function planName(id) {
+  return PLAN_NAMES[id] || id || 'No plan';
+}
+
 export const PLANS = [
   {
     id: 'challenge',
@@ -10,7 +21,7 @@ export const PLANS = [
   {
     id: 'wedding',
     name: '12 Week Wedding Prep',
-    price: 'One-time bridal program',
+    price: '$444 CAD one-time',
     interval: 'one_time',
     envPrice: 'PADDLE_PRICE_WEDDING',
     weeks: 12,
@@ -18,7 +29,7 @@ export const PLANS = [
   {
     id: 'monthly',
     name: 'Lift with EME, Monthly',
-    price: 'Monthly subscription',
+    price: '$55 CAD / 4 weeks',
     interval: 'subscription',
     envPrice: 'PADDLE_PRICE_MONTHLY',
     weeks: 4,
@@ -30,7 +41,7 @@ export function weeksForPlan(planId) {
 }
 
 export function planById(id) {
-  return PLANS.find((p) => p.id === id) ?? PLANS.find((p) => p.id === 'monthly');
+  return PLANS.find((p) => p.id === id) ?? PLANS.find((p) => p.id === 'wedding');
 }
 
 export function paddlePriceId(planId) {

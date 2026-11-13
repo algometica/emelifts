@@ -1,6 +1,7 @@
 import { prisma } from './prisma';
 import { programForPlan, scheduleProgramForUser } from './schedule';
 import { weeksForPlan } from './plans';
+import { toDateKey } from './dates';
 
 async function ensureHabits(userId) {
   const count = await prisma.habit.count({ where: { userId } });
@@ -122,6 +123,7 @@ export async function grantAppAccess({
     await scheduleProgramForUser({
       userId: user.id,
       programId: program.id,
+      startDate: toDateKey(data.startDate || new Date()),
       weeks: weeksForPlan(resolvedPlan),
     });
   }

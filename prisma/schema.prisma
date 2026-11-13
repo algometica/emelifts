@@ -25,6 +25,7 @@ model User {
   progressPhotos     ProgressPhoto[]
   bodyStats          BodyStat[]
   enrollments        Enrollment[]
+  workoutOverrides   Workout[]
 }
 
 model Membership {
@@ -56,13 +57,18 @@ model Workout {
   id           String              @id @default(cuid())
   programId    String
   program      Program             @relation(fields: [programId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
   name         String
   durationMin  Int                 @default(40)
   notes        String              @default("")
   dayOffset    Int                 @default(0)
+  weekIndex    Int                 @default(0)
   sortOrder    Int                 @default(0)
   exercises    Exercise[]
   sessions     ScheduledSession[]
+
+  @@index([programId, userId, weekIndex])
 }
 
 model Movement {
@@ -145,6 +151,7 @@ model Message {
   body       String
   imageUrl   String    @default("")
   createdAt  DateTime  @default(now())
+  editedAt   DateTime?
   readAt     DateTime?
 }
 

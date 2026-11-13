@@ -3,21 +3,23 @@ import { getSessionUser, isCoach } from '@/lib/session';
 import { prisma } from '@/lib/prisma';
 import { coachFulfillEnrollment, coachInviteMember } from '@/app/actions';
 import CoachShell from '@/components/coach/CoachShell';
-import ChangePasswordForm from '@/components/app/ChangePasswordForm';
+import { planName } from '@/lib/plans';
 
-export const metadata = { title: 'Coach | Emelifts' };
+export const metadata = { title: 'Clients | Emelifts' };
 
-function statusLabel(membership) {
-  if (!membership) return 'No plan';
-  if (!membership.paddleCustomerId && membership.status !== 'pending') {
-    return 'Free access';
-  }
-  return membership.status;
+function memberStatus(membership) {
+  if (!membership) return 'No access';
+  if (membership.status === 'paused') return 'Paused';
+  if (membership.status === 'pending') return 'Pending';
+  if (membership.status === 'complimentary') return 'Complimentary';
+  if (membership.paddleCustomerId) return 'Paid';
+  return 'Active';
 }
 
 export default async function CoachHome() {
   const user = await getSessionUser();
-  if (!isCoach(user)) redirect('/login');
+  if (!user) redirect('/login');
+  if (!isCoach(user)) redirect('/app');
 
   const members = await prisma.user.findMany({
     where: { role: 'member' },
@@ -34,69 +36,7 @@ export default async function CoachHome() {
   });
 
   return (
-    <CoachShell
-      title="Clients"
-      subtitle="Paid members come in through Enroll. Invite is only for free access."
-    >
-      {enrollments.length > 0 ? (
-        <section className="mb-8">
-          <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-wide text-[#6e6e73]">
-            Started checkout, not confirmed
-          </h2>
-          <ul className="space-y-2">
-            {enrollments.map((e) => (
-              <li key={e.id} className="card flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <p className="font-medium">{e.name}</p>
-                  <p className="text-[13px] text-[#6e6e73]">
-                    {e.email} · {e.plan}
-                  </p>
-                </div>
-                <form action={coachFulfillEnrollment.bind(null, e.id)}>
-                  <button type="submit" className="btn-secondary">
-                    Mark paid by hand
-                  </button>
-                </form>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      <section className="card mb-8">
-        <h2 className="text-[17px] font-semibold">Give free access</h2>
-        <p className="mt-2 text-[14px] leading-relaxed text-[#6e6e73]">
-          This does not create a Paddle customer or start billing. They get the app
-          for free until they enroll and pay themselves. The menu only picks which
-          calendar to load.
-        </p>
-        <form action={coachInviteMember} className="mt-4 grid gap-3 md:grid-cols-2">
-          <input name="name" placeholder="Name" required className="field" />
-          <input name="email" type="email" placeholder="Email" required className="field" />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password they will use (8+)"
-            required
-            minLength={8}
-            maxLength={200}
-            className="field"
-          />
-          <select name="plan" defaultValue="complimentary" className="field">
-            <option value="complimentary">Complimentary (no charge)</option>
-            <option value="monthly">Monthly calendar, still free</option>
-            <option value="challenge">6 week calendar, still free</option>
-            <option value="wedding">Wedding calendar, still free</option>
-          </select>
-          <button type="submit" className="btn-primary md:col-span-2">
-            Create free access
-          </button>
-        </form>
-      </section>
-
-      <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-wide text-[#6e6e73]">
-        {members.length} members
-      </h2>
+    <CoachShell title="Clients">
       <ul className="space-y-2">
         {members.map((m) => {
           const membership = m.memberships[0];
@@ -110,20 +50,76 @@ export default async function CoachHome() {
                 <div>
                   <p className="font-medium">{m.name}</p>
                   <p className="mt-1 text-[13px] text-[#6e6e73]">
-                    {m.email}
-                    <span className="pill ml-2">{statusLabel(membership)}</span>
-                    <span className="pill ml-1">{membership?.plan ?? 'none'}</span>
+                    {planName(membership?.plan)}
+                    <span className="pill ml-2">{memberStatus(membership)}</span>
                   </p>
                 </div>
                 <p className="text-[13px] text-[#6e6e73]">
-                  {done}/{m.scheduledSessions.length} logged
+                  {done} logged
                 </p>
               </a>
             </li>
           );
         })}
       </ul>
-      <ChangePasswordForm />
+      {members.length === 0 ? (
+        <p className="text-[15px] text-[#6e6e73]">No clients yet.</p>
+      ) : null}
+
+      <details className="mt-8">
+        <summary className="btn-secondary">
+          Add a client without charging
+        </summary>
+        <form action={coachInviteMember} className="card mt-3 grid gap-3 md:grid-cols-2">
+          <p className="text-[14px] leading-relaxed text-[#6e6e73] md:col-span-2">
+            Creates a login and calendar. No Paddle charge.
+          </p>
+          <input name="name" placeholder="Name" required className="field" />
+          <input name="email" type="email" placeholder="Email" required className="field" />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password you will tell them"
+            required
+            minLength={8}
+            maxLength={200}
+            className="field"
+          />
+          <select name="plan" defaultValue="monthly" className="field">
+            <option value="monthly">Monthly calendar</option>
+            <option value="challenge">6 week calendar</option>
+            <option value="wedding">Wedding calendar</option>
+          </select>
+          <button type="submit" className="btn-primary md:col-span-2">
+            Add client
+          </button>
+        </form>
+      </details>
+
+      {enrollments.length > 0 ? (
+        <details className="mt-4">
+          <summary className="btn-secondary">
+            Waiting on payment ({enrollments.length})
+          </summary>
+          <ul className="mt-3 space-y-2">
+            {enrollments.map((e) => (
+              <li key={e.id} className="card flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="font-medium">{e.name}</p>
+                  <p className="text-[13px] text-[#6e6e73]">
+                    {e.email} · {planName(e.plan)}
+                  </p>
+                </div>
+                <form action={coachFulfillEnrollment.bind(null, e.id)}>
+                  <button type="submit" className="btn-secondary">
+                    Unlock anyway
+                  </button>
+                </form>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
     </CoachShell>
   );
 }

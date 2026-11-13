@@ -23,7 +23,11 @@ export default function LoginForm({ nextPath }) {
       setError('Email or password is wrong.');
       return;
     }
-    window.location.href = safeNextPath(nextPath) || '/app';
+    const session = await fetch('/api/auth/session')
+      .then((r) => r.json())
+      .catch(() => null);
+    const fallback = session?.user?.role === 'coach' ? '/coach' : '/app';
+    window.location.href = safeNextPath(nextPath) || fallback;
   }
 
   return (
@@ -53,12 +57,9 @@ export default function LoginForm({ nextPath }) {
       <button type="submit" disabled={pending} className="btn-primary w-full">
         {pending ? 'Signing in…' : 'Log in'}
       </button>
-      <p className="text-center text-[13px] text-[#6e6e73]">
-        New here?{' '}
-        <a href="/enroll" className="font-medium text-[#0066cc]">
-          Enroll
-        </a>
-      </p>
+      <a href="/enroll" className="btn-secondary w-full">
+        Enroll
+      </a>
     </form>
   );
 }

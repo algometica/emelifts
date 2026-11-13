@@ -7,13 +7,17 @@ import {
   coachPauseMember,
 } from '@/app/actions';
 import MessageForm from '@/components/app/MessageForm';
+import MessageList from '@/components/app/MessageList';
 import CoachShell from '@/components/coach/CoachShell';
+import ClientWeekStudio from '@/components/coach/ClientWeekStudio';
 import { toDateKey } from '@/lib/dates';
 import { isId } from '@/lib/safe';
+import { planName, weeksForPlan } from '@/lib/plans';
 
 export default async function ClientPage({ params }) {
   const coach = await getSessionUser();
-  if (!isCoach(coach)) redirect('/login');
+  if (!coach) redirect('/login');
+  if (!isCoach(coach)) redirect('/app');
   const { id } = await params;
   if (!isId(id)) notFound();
 
@@ -25,8 +29,6 @@ export default async function ClientPage({ params }) {
         include: { workout: true },
         orderBy: { date: 'asc' },
       },
-      bodyStats: { orderBy: { createdAt: 'desc' }, take: 6 },
-      habitLogs: true,
     },
   });
   if (!member || member.role !== 'member') notFound();
@@ -43,88 +45,110 @@ export default async function ClientPage({ params }) {
   });
 
   const membership = member.memberships[0];
+  const program = membership?.programId
+    ? await prisma.program.findUnique({
+        where: { id: membership.programId },
+        include: {
+          workouts: {
+            where: { OR: [{ userId: null }, { userId: member.id }] },
+            include: { exercises: { orderBy: { sortOrder: 'asc' } } },
+            orderBy: { sortOrder: 'asc' },
+          },
+        },
+      })
+    : null;
   const visibleSessions = member.scheduledSessions.filter(
     (s) => !membership?.programId || s.workout.programId === membership.programId
   );
+  const upcoming = visibleSessions.filter((s) => s.status === 'scheduled').slice(0, 12);
+  const paused = membership?.status === 'paused' || membership?.status === 'pending';
 
   return (
-    <CoachShell
-      title={member.name}
-      subtitle={`${member.email} · ${membership?.plan ?? 'no plan'} · ${membership?.status ?? 'none'}${
-        membership?.programId
-          ? ` · ${programs.find((p) => p.id === membership.programId)?.name ?? 'program'}`
-          : ''
-      }`}
-    >
-      <div className="mb-6 flex gap-2">
-        <form action={coachActivateMember.bind(null, member.id)}>
-          <button className="btn-primary text-[14px]">Activate access</button>
-        </form>
-        <form action={coachPauseMember.bind(null, member.id)}>
-          <button className="btn-secondary">Pause access</button>
-        </form>
+    <CoachShell title={member.name} subtitle={`${member.email} · ${planName(membership?.plan)}`}>
+      <div className="mb-6">
+        {paused ? (
+          <form action={coachActivateMember.bind(null, member.id)}>
+            <button className="btn-primary text-[14px]">Turn access on</button>
+          </form>
+        ) : (
+          <form action={coachPauseMember.bind(null, member.id)}>
+            <button className="btn-secondary">Pause access</button>
+          </form>
+        )}
       </div>
 
       <div className="space-y-6">
         <section className="card">
-          <h2 className="text-[17px] font-semibold">Put a program on her calendar</h2>
-          <p className="mt-1 text-[14px] text-[#6e6e73]">
-            Replaces upcoming sessions. Completed logs stay. Paid Paddle plan does not change.
-          </p>
-          <form action={coachAssignProgram} className="mt-4 grid gap-3 md:grid-cols-4">
+          <h2 className="text-[17px] font-semibold">Calendar</h2>
+          <form action={coachAssignProgram} className="mt-4 grid gap-3 md:grid-cols-3">
             <input type="hidden" name="userId" value={member.id} />
-            <select name="programId" className="field">
+            <select name="programId" className="field" defaultValue={membership?.programId || ''}>
               {programs.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name}
                 </option>
               ))}
             </select>
-            <input type="date" name="startDate" defaultValue={toDateKey()} className="field" />
-            <input type="number" name="weeks" defaultValue={4} min={1} max={12} className="field" />
-            <button className="btn-primary">Schedule</button>
+            <input
+              type="date"
+              name="startDate"
+              defaultValue={
+                membership?.startDate ? toDateKey(membership.startDate) : toDateKey()
+              }
+              className="field"
+            />
+            <input type="hidden" name="weeks" value={membership?.plan === 'wedding' ? 12 : membership?.plan === 'challenge' ? 6 : 4} />
+            <button className="btn-primary">Send this calendar</button>
           </form>
-        </section>
-
-        <section className="card">
-          <h2 className="text-[17px] font-semibold">Calendar</h2>
-          <ul className="mt-3 divide-y text-[14px]">
-            {visibleSessions.map((s) => (
-              <li key={s.id} className="flex justify-between py-2">
-                <span>
-                  {s.date} · {s.workout.name}
-                </span>
-                <span className="text-[#6e6e73]">{s.status}</span>
-              </li>
-            ))}
+          <p className="mt-2 text-[13px] text-[#6e6e73]">
+            Start date is this client’s week 1. Sending again keeps that date unless you change it.
+          </p>
+          <ul className="mt-4 divide-y text-[14px]">
+            {upcoming.length === 0 ? (
+              <li className="py-2 text-[#6e6e73]">No upcoming sessions.</li>
+            ) : (
+              upcoming.map((s) => (
+                <li key={s.id} className="flex justify-between py-2">
+                  <span>
+                    {s.date} · {s.workout.name}
+                  </span>
+                </li>
+              ))
+            )}
           </ul>
         </section>
 
+        {program ? (
+          <ClientWeekStudio
+            program={program}
+            userId={member.id}
+            weeks={weeksForPlan(membership?.plan) || 12}
+          />
+        ) : null}
+
         <section className="card">
-          <h2 className="text-[17px] font-semibold">Messages</h2>
-          <div className="mt-3 max-h-80 space-y-2 overflow-y-auto">
-            {messages.map((m) => (
-              <p key={m.id} className="text-[14px]">
-                <span className="font-medium">{m.fromUserId === coach.id ? 'You' : member.name}: </span>
-                {m.body}
-              </p>
-            ))}
+          <h2 className="text-[17px] font-semibold">Message</h2>
+          <div className="mt-3 max-h-80 overflow-y-auto">
+            <MessageList
+              currentUserId={coach.id}
+              messages={messages.map((m) => ({
+                id: m.id,
+                fromUserId: m.fromUserId,
+                body: m.body,
+                edited: Boolean(m.editedAt),
+                createdAt: m.createdAt.toISOString(),
+                when: m.createdAt.toLocaleString('en-CA', {
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                }),
+              }))}
+            />
           </div>
           <div className="mt-4">
-            <MessageForm toUserId={member.id} placeholder={`Message ${member.name}`} />
+            <MessageForm toUserId={member.id} placeholder="Write a note" />
           </div>
-        </section>
-
-        <section className="card">
-          <h2 className="text-[17px] font-semibold">Weight log</h2>
-          <ul className="mt-3 text-[14px] text-[#6e6e73]">
-            {member.bodyStats.map((s) => (
-              <li key={s.id}>
-                {s.date}
-                {s.weight != null ? ` · ${s.weight} kg` : ''}
-              </li>
-            ))}
-          </ul>
         </section>
       </div>
     </CoachShell>

@@ -8,9 +8,14 @@ import { prisma } from '@/lib/prisma';
 import { getSessionUser, hasAppAccess, isCoach } from '@/lib/session';
 import { toDateKey } from '@/lib/dates';
 import { paddlePriceId } from '@/lib/plans';
-import { upsertMemberAccount } from '@/lib/access';
-import { programForPlan, scheduleProgramForUser } from '@/lib/schedule';
+import {
+  cloneWeekWorkouts,
+  programForPlan,
+  scheduleProgramForUser,
+  startDateForUser,
+} from '@/lib/schedule';
 import { cleanEmail, cleanText, isId, toFiniteNumber } from '@/lib/safe';
+import { UNDO_WINDOW_MS, canEditMessage } from '@/lib/messages';
 
 async function requireMember() {
   const user = await getSessionUser();
@@ -24,13 +29,7 @@ async function requireCoach() {
   return user;
 }
 
-export async function saveSetLog({ sessionId, exerciseId, setIndex, weight, reps, rpe }) {
-  const user = await requireMember();
-  const session = await prisma.scheduledSession.findFirst({
-    where: { id: sessionId, userId: user.id },
-  });
-  if (!session) throw new Error('Session not found');
-
+async function upsertSetLog({ sessionId, exerciseId, setIndex, weight, reps, rpe }) {
   const existing = await prisma.setLog.findFirst({
     where: { sessionId, exerciseId, setIndex },
   });
@@ -39,15 +38,63 @@ export async function saveSetLog({ sessionId, exerciseId, setIndex, weight, reps
     reps: toFiniteNumber(reps),
     rpe: toFiniteNumber(rpe),
   };
+  if (data.weight == null && data.reps == null) {
+    if (existing) await prisma.setLog.delete({ where: { id: existing.id } });
+    return;
+  }
   if (existing) {
     await prisma.setLog.update({ where: { id: existing.id }, data });
-  } else {
-    await prisma.setLog.create({
-      data: { sessionId, exerciseId, setIndex, ...data },
-    });
+    return;
   }
+  await prisma.setLog.create({
+    data: { sessionId, exerciseId, setIndex, ...data },
+  });
+}
+
+export async function saveSetLog({ sessionId, exerciseId, setIndex, weight, reps, rpe }) {
+  const user = await requireMember();
+  const session = await prisma.scheduledSession.findFirst({
+    where: { id: sessionId, userId: user.id },
+  });
+  if (!session) throw new Error('Session not found');
+  await upsertSetLog({ sessionId, exerciseId, setIndex, weight, reps, rpe });
   revalidatePath('/app');
   revalidatePath(`/app/workout/${sessionId}`);
+}
+
+export async function finishWorkout(formData) {
+  const user = await requireMember();
+  const sessionId = String(formData.get('sessionId') ?? '');
+  if (!isId(sessionId)) throw new Error('Session not found');
+  const session = await prisma.scheduledSession.findFirst({
+    where: { id: sessionId, userId: user.id },
+    include: { workout: { include: { exercises: { select: { id: true } } } } },
+  });
+  if (!session) throw new Error('Session not found');
+  const allowed = new Set(session.workout.exercises.map((exercise) => exercise.id));
+  for (const [key, value] of formData.entries()) {
+    const match = /^weight:(.+):(\d+)$/.exec(String(key));
+    if (!match) continue;
+    const exerciseId = match[1];
+    const setIndex = Number(match[2]);
+    if (!allowed.has(exerciseId) || !Number.isInteger(setIndex) || setIndex < 0 || setIndex > 30) {
+      continue;
+    }
+    await upsertSetLog({
+      sessionId,
+      exerciseId,
+      setIndex,
+      weight: value,
+      reps: formData.get(`reps:${exerciseId}:${setIndex}`),
+    });
+  }
+  await prisma.scheduledSession.updateMany({
+    where: { id: sessionId, userId: user.id },
+    data: { status: 'completed', completedAt: new Date() },
+  });
+  revalidatePath('/app');
+  revalidatePath(`/app/workout/${sessionId}`);
+  redirect('/app');
 }
 
 export async function completeSession(sessionId) {
@@ -108,12 +155,52 @@ export async function sendMessage(toUserId, body) {
 
   if (targetId === user.id) return { error: 'Cannot message yourself' };
 
-  await prisma.message.create({
+  const row = await prisma.message.create({
     data: { fromUserId: user.id, toUserId: targetId, body: text },
   });
   revalidatePath('/app/messages');
   revalidatePath('/coach');
   if (user.role === 'coach') revalidatePath(`/coach/clients/${targetId}`);
+  return { ok: true, id: row.id };
+}
+
+export async function editMessage(messageId, body) {
+  const user = await getSessionUser();
+  if (!user) throw new Error('Unauthorized');
+  if (!isId(messageId)) return { error: 'Invalid message' };
+  const text = cleanText(body, 2000);
+  if (!text) return { error: 'Message required' };
+  const row = await prisma.message.findFirst({
+    where: { id: messageId, fromUserId: user.id },
+  });
+  if (!row) return { error: 'Message not found' };
+  if (!canEditMessage(row.createdAt)) {
+    return { error: 'Edit window closed (2 hours).' };
+  }
+  await prisma.message.update({
+    where: { id: row.id },
+    data: { body: text, editedAt: new Date() },
+  });
+  revalidatePath('/app/messages');
+  revalidatePath(`/coach/clients/${row.toUserId}`);
+  revalidatePath(`/coach/clients/${row.fromUserId}`);
+  return { ok: true };
+}
+
+export async function undoMessage(messageId) {
+  const user = await getSessionUser();
+  if (!user) throw new Error('Unauthorized');
+  if (!isId(messageId)) return { error: 'Invalid message' };
+  const row = await prisma.message.findFirst({
+    where: { id: messageId, fromUserId: user.id },
+  });
+  if (!row) return { error: 'Message not found' };
+  const ageMs = Date.now() - new Date(row.createdAt).getTime();
+  if (ageMs > UNDO_WINDOW_MS) return { error: 'Undo window closed. Edit the message instead.' };
+  await prisma.message.delete({ where: { id: row.id } });
+  revalidatePath('/app/messages');
+  revalidatePath(`/coach/clients/${row.toUserId}`);
+  revalidatePath(`/coach/clients/${row.fromUserId}`);
   return { ok: true };
 }
 
@@ -148,12 +235,11 @@ export async function startPaddleCheckout(formData) {
   if (!['monthly', 'challenge', 'wedding'].includes(plan)) {
     return { error: 'Pick a plan.' };
   }
-  const passwordHash = await bcrypt.hash(password, 10);
-  try {
-    await upsertMemberAccount({ email, name, passwordHash, plan });
-  } catch (error) {
-    return { error: error.message || 'Could not create account.' };
+  const existing = await prisma.user.findUnique({ where: { email } });
+  if (existing?.role === 'coach') {
+    return { error: 'That email cannot be used to enroll.' };
   }
+  const passwordHash = await bcrypt.hash(password, 10);
   await prisma.enrollment.create({
     data: {
       name,
@@ -258,7 +344,7 @@ export async function coachInviteMember(formData) {
     data: {
       userId: user.id,
       plan,
-      status: plan === 'complimentary' ? 'complimentary' : 'active',
+      status: 'complimentary',
       startDate: new Date(),
     },
   });
@@ -314,6 +400,48 @@ export async function coachSaveProgram(formData) {
   revalidatePath('/coach/programs');
 }
 
+export async function coachCustomizeWeek(formData) {
+  await requireCoach();
+  const programId = String(formData.get('programId') ?? '');
+  const toWeek = Math.max(1, Number(formData.get('weekIndex') || 1));
+  if (!isId(programId)) return { error: 'Missing plan' };
+  await cloneWeekWorkouts({ programId, toWeek, userId: null });
+  revalidatePath('/coach/programs');
+}
+
+export async function coachCustomizeClientWeek(formData) {
+  await requireCoach();
+  const programId = String(formData.get('programId') ?? '');
+  const userId = String(formData.get('userId') ?? '');
+  const toWeek = Math.max(0, Number(formData.get('weekIndex') || 0));
+  if (!isId(programId) || !isId(userId)) return { error: 'Missing client or plan' };
+  await cloneWeekWorkouts({ programId, toWeek, userId });
+  await scheduleProgramForUser({
+    userId,
+    programId,
+    startDate: await startDateForUser(userId),
+  });
+  revalidatePath('/coach/programs');
+  revalidatePath(`/coach/clients/${userId}`);
+  revalidatePath('/app');
+}
+
+export async function coachResetClientWeek(formData) {
+  await requireCoach();
+  const programId = String(formData.get('programId') ?? '');
+  const userId = String(formData.get('userId') ?? '');
+  const weekIndex = Math.max(0, Number(formData.get('weekIndex') || 0));
+  if (!isId(programId) || !isId(userId)) return { error: 'Missing client or plan' };
+  await prisma.workout.deleteMany({ where: { programId, userId, weekIndex } });
+  await scheduleProgramForUser({
+    userId,
+    programId,
+    startDate: await startDateForUser(userId),
+  });
+  revalidatePath(`/coach/clients/${userId}`);
+  revalidatePath('/app');
+}
+
 export async function coachAddWorkout(formData) {
   await requireCoach();
   const programId = String(formData.get('programId') ?? '');
@@ -322,18 +450,34 @@ export async function coachAddWorkout(formData) {
   const dayOffset = Number(formData.get('dayOffset') || 0);
   const notes = String(formData.get('notes') ?? '').trim();
   if (!programId || !name) return { error: 'Workout name required' };
-  const count = await prisma.workout.count({ where: { programId } });
+  const weekIndex = Math.max(0, Number(formData.get('weekIndex') || 0));
+  const userIdRaw = String(formData.get('userId') ?? '');
+  const userId = isId(userIdRaw) ? userIdRaw : null;
+  const count = await prisma.workout.count({ where: { programId, weekIndex, userId } });
   await prisma.workout.create({
     data: {
       programId,
+      userId,
       name,
       durationMin: Number.isFinite(durationMin) ? durationMin : 40,
       dayOffset: Math.min(6, Math.max(0, dayOffset)),
+      weekIndex,
       notes,
       sortOrder: count,
     },
   });
   revalidatePath('/coach/programs');
+  revalidatePath('/coach');
+}
+
+export async function coachDeleteWorkout(formData) {
+  await requireCoach();
+  const id = String(formData.get('id') ?? '');
+  if (!isId(id)) return { error: 'Missing day' };
+  await prisma.workout.delete({ where: { id } });
+  revalidatePath('/coach/programs');
+  revalidatePath('/coach');
+  revalidatePath('/app');
 }
 
 export async function coachSaveWorkout(formData) {
@@ -354,6 +498,7 @@ export async function coachSaveWorkout(formData) {
     },
   });
   revalidatePath('/coach/programs');
+  revalidatePath('/coach');
   revalidatePath('/app');
 }
 
@@ -377,6 +522,7 @@ export async function coachAddExercise(formData) {
     },
   });
   revalidatePath('/coach/programs');
+  revalidatePath('/coach');
   revalidatePath('/app');
 }
 
@@ -398,6 +544,7 @@ export async function coachSaveExercise(formData) {
     },
   });
   revalidatePath('/coach/programs');
+  revalidatePath('/coach');
   revalidatePath('/app');
 }
 
@@ -407,6 +554,7 @@ export async function coachDeleteExercise(formData) {
   if (!id) return;
   await prisma.exercise.delete({ where: { id } });
   revalidatePath('/coach/programs');
+  revalidatePath('/coach');
   revalidatePath('/app');
 }
 
@@ -426,7 +574,7 @@ export async function coachPushProgram(formData) {
     await scheduleProgramForUser({
       userId: member.id,
       programId,
-      startDate: toDateKey(),
+      startDate: await startDateForUser(member.id),
       weeks: weeks > 0 ? weeks : undefined,
     });
   }

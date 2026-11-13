@@ -17,8 +17,8 @@ export default async function MovementsPage() {
 
   return (
     <div className="mx-auto min-h-[100dvh] max-w-3xl px-5 py-10">
-      <a href="/coach" className="text-[14px] text-[#0066cc]">
-        ← Clients
+      <a href="/coach" className="btn-secondary btn-sm">
+        Back to Clients
       </a>
       <h1 className="mt-4 text-[32px] font-semibold tracking-tight">Movement library</h1>
       <p className="mt-2 text-[15px] text-[#6e6e73]">

@@ -46,6 +46,8 @@ export default async function MessagesPage() {
     fromUserId: m.fromUserId,
     body: m.body,
     when: formatWhen(m.createdAt),
+    createdAt: m.createdAt.toISOString(),
+    edited: Boolean(m.editedAt),
   }));
 
   return (

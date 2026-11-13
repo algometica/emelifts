@@ -21,7 +21,7 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/#testimonials`,
+      url: `${baseUrl}/#transformations`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,

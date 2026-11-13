@@ -62,8 +62,10 @@ export default async function TodayPage({ searchParams }) {
     where: { toUserId: user.id, readAt: null },
   });
 
+  const programLabel = user.memberships[0]?.program?.name || 'This week';
+
   return (
-    <AppShell title={user.name.split(' ')[0]} subtitle="This week">
+    <AppShell title="Today" subtitle={programLabel}>
       <WeekStrip days={days} selected={selected} scheduledKeys={scheduledKeys} />
       <p className="mb-1 text-[13px] text-[#6e6e73]">{formatLongDate(selected)}</p>
       <p className="mb-4 text-[13px] text-[#6e6e73] md:text-[15px]">

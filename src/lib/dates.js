@@ -37,6 +37,30 @@ export function addDays(date, n) {
   return d;
 }
 
+export function lastDays(n, end = new Date()) {
+  return Array.from({ length: n }, (_, i) => {
+    const day = addDays(end, i - (n - 1));
+    return {
+      date: day,
+      key: toDateKey(day),
+      label: day.toLocaleDateString('en-CA', { weekday: 'narrow' }),
+      dayNum: day.getDate(),
+    };
+  });
+}
+
+export function streakFrom(keys, endKey) {
+  const set = new Set(keys);
+  let cursor = parseDateKey(endKey);
+  if (!set.has(endKey)) cursor = addDays(cursor, -1);
+  let count = 0;
+  while (set.has(toDateKey(cursor))) {
+    count += 1;
+    cursor = addDays(cursor, -1);
+  }
+  return count;
+}
+
 export function formatLongDate(key) {
   return parseDateKey(key).toLocaleDateString('en-CA', {
     weekday: 'long',

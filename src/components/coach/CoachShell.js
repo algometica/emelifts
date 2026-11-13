@@ -18,15 +18,18 @@ export default function CoachShell({ title, subtitle, children }) {
               </p>
             ) : null}
           </div>
-          <nav className="flex flex-wrap items-center gap-3 text-[14px]">
+          <nav className="flex flex-wrap items-center gap-4 text-[14px]">
             <a href="/coach" className="text-[#0066cc]">
               Clients
             </a>
             <a href="/coach/programs" className="text-[#0066cc]">
               Programs
             </a>
+            <a href="/coach/account" className="text-[#0066cc]">
+              Account
+            </a>
             <form action={signOutAction}>
-              <button type="submit" className="btn-secondary px-0">
+              <button type="submit" className="btn-secondary btn-sm">
                 Sign out
               </button>
             </form>

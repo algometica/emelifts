@@ -2,6 +2,6 @@
 export const NAV = [
   { href: '#pricing', label: 'Program' },
   { href: '#about', label: 'About' },
-  { href: '#testimonials', label: 'Reviews' },
+  { href: '#transformations', label: 'Results' },
   { href: '#contact', label: 'Contact', emphasize: true },
 ];

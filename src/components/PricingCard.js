@@ -42,6 +42,13 @@ const PricingCard = ({ plan, dark = false, bgClass }) => {
             </li>
           ))}
         </ul>
+        {plan.notes?.length ? (
+          <ul className={`mx-auto mb-8 max-w-sm space-y-1 text-center text-[13px] ${metaColor}`}>
+            {plan.notes.map((note) => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
+        ) : null}
         <div className="flex justify-center">
           <span className={`${btnClass} pointer-events-none text-center`}>{plan.cta ?? 'Enroll'}</span>
         </div>

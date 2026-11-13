@@ -8,11 +8,13 @@ export const metadata = { title: 'Programs | Emelifts' };
 
 export default async function ProgramsPage() {
   const user = await getSessionUser();
-  if (!isCoach(user)) redirect('/login');
+  if (!user) redirect('/login');
+  if (!isCoach(user)) redirect('/app');
 
   const programs = await prisma.program.findMany({
     include: {
       workouts: {
+        where: { userId: null },
         include: { exercises: { orderBy: { sortOrder: 'asc' } } },
         orderBy: { sortOrder: 'asc' },
       },
@@ -40,7 +42,7 @@ export default async function ProgramsPage() {
   return (
     <CoachShell
       title="Programs"
-      subtitle="Pick a plan, pick a day, add the lifts. Clients on that plan see the same session."
+      subtitle="This is the master plan. Later weeks copy week 1 until you customize them. Send to all keeps each client’s start date. Open a client to change one week for them only."
     >
       <ProgramStudio programs={programs} members={members} counts={counts} />
     </CoachShell>

@@ -25,7 +25,7 @@ export default function PhotoUpload() {
 
   return (
     <label className="block">
-      <span className="btn-secondary px-0">Add a dated photo</span>
+      <span className="btn-secondary">Add a dated photo</span>
       <input type="file" accept="image/*" className="sr-only" onChange={onChange} />
       {status ? <p className="mt-1 text-[13px] text-[#6e6e73]">{status}</p> : null}
     </label>

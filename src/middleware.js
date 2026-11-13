@@ -1,8 +1,20 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
+import { clientIp, tooMany } from '@/lib/limit';
 
 export default auth((request) => {
   const { pathname } = request.nextUrl;
+  const ip = clientIp(request);
+
+  if (
+    request.method === 'POST' &&
+    (pathname.startsWith('/api/auth') || pathname === '/enroll' || pathname === '/login')
+  ) {
+    if (tooMany(`auth:${ip}`, 40, 60_000)) {
+      return new NextResponse('Too many attempts. Wait a minute.', { status: 429 });
+    }
+  }
+
   const session = request.auth;
 
   if (pathname.startsWith('/app') || pathname.startsWith('/coach')) {
@@ -21,5 +33,5 @@ export default auth((request) => {
 });
 
 export const config = {
-  matcher: ['/app', '/app/:path*', '/coach', '/coach/:path*'],
+  matcher: ['/app', '/app/:path*', '/coach', '/coach/:path*', '/api/auth/:path*', '/enroll', '/login'],
 };

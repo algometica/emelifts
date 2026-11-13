@@ -64,7 +64,7 @@ export default function MobileMenu({ enrollUrl, formUrl, loginUrl }) {
                 </a>
               ) : null}
               <a href={enrollUrl} onClick={close} className="btn-primary mb-3 w-full text-center">
-                Enroll
+                Start Prep
               </a>
               <a
                 href={formUrl}

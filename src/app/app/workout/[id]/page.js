@@ -47,8 +47,8 @@ export default async function WorkoutPage({ params }) {
   return (
     <AppShell title={session.workout.name} subtitle={`${session.workout.durationMin} min`}>
       <p className="mb-4">
-        <a href="/app" className="text-[14px] text-[#0066cc]">
-          ← Today
+        <a href="/app" className="btn-secondary btn-sm">
+          Back to Today
         </a>
       </p>
       <WorkoutLogger session={{ ...session, workout: { ...session.workout, exercises } }} />

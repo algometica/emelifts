@@ -1,4 +1,4 @@
-import { ENROLL_URL, INTAKE_FORM_URL } from '../lib/links';
+import { WEDDING_URL, INTAKE_FORM_URL } from '../lib/links';
 
 const ContactMe = () => {
   return (
@@ -27,13 +27,8 @@ const ContactMe = () => {
           >
             Message Em
           </a>
-          <a
-            href={ENROLL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-secondary text-[17px]"
-          >
-            Enroll now
+          <a href={WEDDING_URL} className="btn-secondary text-[17px]">
+            Start Prep
           </a>
         </div>
         <p className="mt-10 text-center text-[13px] leading-snug text-[#6e6e73]">
